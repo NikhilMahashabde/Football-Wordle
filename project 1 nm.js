@@ -14,12 +14,18 @@ let flagsLeagueSelected = {
     "EPL": true,
 }
 
+let currentDifficulty = "easy";
+let difficultMap = {
+    easy: 10,
+    medium: 8,
+    hard: 7,
+}
 
 // function to filter / create sublist 
 
 function filterDataset(flagsLeagueSelected, dataset) {
 
-    let selectedName = "messi";
+    let selectedName = "Messi";
 
     return selectedName;
 }
@@ -27,29 +33,38 @@ function filterDataset(flagsLeagueSelected, dataset) {
 
 // select random name from filtered list
 
-let targetName = filterDataset(flagsLeagueSelected, dataset)
+let targetName = filterDataset(flagsLeagueSelected, dataset);
 
 let gridLength = targetName.length;
 
 
 
+
+
+
 //grid container create
 let guessContainer = document.getElementById("GuessContainer");    
+guessContainer.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
 
 //loop over and create N lines 
 
+for (j=0; j<difficultMap[currentDifficulty]; j++){
     for (let i =0; i<gridLength; i++){
-        let newNode = generateElement("input",guessContainer );
-        console.log(newNode);
-        
+        let newNode = generateElement("input", guessContainer, 'id="sadgasg"', 'class="hi"');
+        newNode.classList.add("charInputBox");
+        newNode.maxLength = 1;
+        newNode.id = `0.${i}`;
     }
-
+}
+   
     //
 
 
 //element generate function to avoid repitition
-function generateElement(type, parent){
-    let newNode = document.createElement(`"${type}"`);
+function generateElement(type, parent, ...options){
+
+    console.log(options[0], options[1])
+    let newNode = document.createElement(type);
     parent.appendChild(newNode);
     return newNode
 }
