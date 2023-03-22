@@ -2,14 +2,16 @@
     grid-template-columns: auto repeat(5, 100px) auto;
     display: grid;
     justify-items: center;
+
+    justify-content: center;
     
 }
 
 .charInputBox {
-    width: 5%;
-    background-color: rgb(174, 224, 224);
+    width: 8%;
+    background-color: rgb(225, 234, 234);
     padding: 8px 30px;
-    margin: 30px 0;
-    box-sizing: border-box;
+    margin: 1px 0;
+ /*   box-sizing: border-box; */
 }
 
