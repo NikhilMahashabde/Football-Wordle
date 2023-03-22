@@ -19,7 +19,7 @@ let flagsLeagueSelected = {
 
 function filterDataset(flagsLeagueSelected, dataset) {
 
-    let selectedName = "";
+    let selectedName = "messi";
 
     return selectedName;
 }
@@ -29,11 +29,27 @@ function filterDataset(flagsLeagueSelected, dataset) {
 
 let targetName = filterDataset(flagsLeagueSelected, dataset)
 
-gridLength = targetName.length;
+let gridLength = targetName.length;
 
 
 
 //grid container create
-    //loop over and create N lines 
+let guessContainer = document.getElementById("GuessContainer");    
+
+//loop over and create N lines 
+
+    for (let i =0; i<gridLength; i++){
+        let newNode = generateElement("input",guessContainer );
+        console.log(newNode);
+        
+    }
 
     //
+
+
+//element generate function to avoid repitition
+function generateElement(type, parent){
+    let newNode = document.createElement(`"${type}"`);
+    parent.appendChild(newNode);
+    return newNode
+}
