@@ -1,0 +1,9 @@
+.container {
+
+    display: grid;
+}
+
+#charInputBox {
+
+    background-color: aqua;
+}
