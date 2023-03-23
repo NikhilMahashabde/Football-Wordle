@@ -8,7 +8,7 @@ let dataset = [
 // keyboard keyset to display
 let displayKeysMap = {
     topRow: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "del"],
-    middleRow: ["a", "s", "d", "f", "g", "h", "j", "k", "l", "enter"],
+    middleRow: ["a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter"],
     bottomRow: ["z", "x", "c", "v", "b", "n", "m"]
 }
 let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
@@ -22,6 +22,7 @@ function displayKeyboard(displayKeysMap){
         let key = generateElement("div", keyboardContainerTopRowDiv)
         key.classList.add("keyboardKeys")
         key.textContent = element;
+        key.addEventListener("click", event => {keyPress(event)});
         
     });
 
@@ -61,7 +62,7 @@ let difficultMap = {
 
 function filterDataset(flagsLeagueSelected, dataset) {
 
-    let selectedName = "Christiano Ronaldo";
+    let selectedName = "Messi";
 
     return selectedName;
 }
@@ -70,9 +71,7 @@ function filterDataset(flagsLeagueSelected, dataset) {
 // select random name from filtered list
 
 let targetName = filterDataset(flagsLeagueSelected, dataset);
-
 let gridLength = targetName.length;
-
 
 
 //grid container create
@@ -81,12 +80,12 @@ containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`
 
 //loop over and create N lines 
 
-for (j=0; j<difficultMap[currentDifficulty]; j++){
-    for (let i =0; i<gridLength; i++){
+for (y=0; y<difficultMap[currentDifficulty]; y++){
+    for (let x = 0; x<gridLength; x++){
         let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
         newNode.classList.add("charInputBox");
         newNode.maxLength = 1;
-        newNode.id = `0.${i}`;
+        newNode.id = `${x}.${y}`;
     }
 }
    
@@ -95,9 +94,63 @@ for (j=0; j<difficultMap[currentDifficulty]; j++){
 
 //element generate function to avoid repitition
 function generateElement(type, parent, ...options){
-
-    console.log(options[0], options[1])
+    
     let newNode = document.createElement(type);
     parent.appendChild(newNode);
     return newNode
 }
+
+
+//-----------------------------------------------
+//handle logic for key press event. 
+
+let currentWord = "";
+let currentLine = 0;
+
+function keyPress(event){
+    keyInput = event.target.textContent;
+    
+    //while currentline < max line depending on difficulty>
+
+    currentWord = updateWord(currentWord, keyInput) 
+    console.log(currentWord, currentWord.length)
+    mapCurrentWordToLine(currentWord, currentLine);
+
+      
+}
+
+// updatedword
+//add logic here for delete and enter
+function updateWord(wordToUpdate, keyInput) {
+    
+    switch (keyInput){
+        case ("del"):
+            return (wordToUpdate.substring(0,wordToUpdate.length-1));
+
+        break;
+        case ("enter"):
+
+        break;
+        default:
+            if (currentWord.length < targetName.length){
+                return (wordToUpdate.concat(keyInput));
+            } else {
+                return wordToUpdate;
+            }
+  
+        break;
+    };
+        
+};
+
+
+function mapCurrentWordToLine(currentWord, currentLine){
+    let y = currentLine;
+
+    for (let x = 0; x < targetName.length ; x++){
+        let divAtIndex = document.getElementById(`${x}.${y}`);
+        divAtIndex.textContent = currentWord[x];
+    }
+
+}
+//
