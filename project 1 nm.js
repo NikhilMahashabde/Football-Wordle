@@ -1,12 +1,37 @@
+/////////////////////// GLOBAL BINDINGS ////////////////////////////////////
 
-//flags
+///// NODE ELEMENTS /////
+
+// elements targets for global use. 
+let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
+let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
+let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
+let selectInputDifficulty = document.getElementById("selectDifficulty");
+let buttonStartGame = document.getElementById("startGame")
+
+///// EVENT LISTNERS
+//static event listeners
+
+
+////// GLOBAL VARIABLES
+
+let currentDifficulty = "";
+let targetName = "";
+
+///// FLAGS /////
 
 let flagStartGame = false;
 let flagGameActive = false;
 let flagGameEnded = false; 
 
+let flagLeagueSelected = {
+    "La Liga": false, 
+    "EPL": true,
+}
 
-//Dataset container - tba import from excel or JSON real list 
+///// DATASETS AND MAPS /////
+
+//Dataset containers and - tba import from excel or JSON real list 
 let dataset = [
     {name: "L. Messi", club: "barcelona", league: "Laliga"}, 
     {name: "Christiano Ronaldo", club: "al-hilal", league: "EPL"}
@@ -19,12 +44,21 @@ let displayKeysMap = {
     bottomRow: ["z", "x", "c", "v", "b", "n", "m"]
 }
 
-let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
-let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
-let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
-let buttonStartGame = document.getElementById("startGame")
+//game difficulty map 
+let difficultMap = {
+    easy: 8,
+    medium: 7,
+    hard: 6,
+}
 
+
+///////////////////////////////// PAGE INITIALISATION /////////////////////////////
+//generate the keyboard appearance and layout. 
+
+// keyboard
 displayKeyboard(displayKeysMap);
+
+////////////////////////////////// FUNCTIONS ///////////////////////////
 
 function displayKeyboard(displayKeysMap){
     displayKeysMap.topRow.forEach(element => {
@@ -47,29 +81,37 @@ function displayKeyboard(displayKeysMap){
         key.classList.add("keyboardKeys");
         key.addEventListener("click", event => {keyPress(event)});
     });
-    
-
 }
 
-// function to generate random name from the list of players. 
+// filter dataset to get a random value;
 // Optional take into account selected league
+function filterDataset(flagLeagueSelected, dataset) {
 
-let flagsLeagueSelected = {
-    "La Liga": false, 
-    "EPL": true,
+    let selectedName = "Messi";
+    return selectedName;
 }
-// start button feature
 
-//start button
+
+//random data generate value;
+//function etc
+// function to generate random name from the list of players. 
+
+
+
+//////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
+
+//start button feature
 function startGameInit(){
 
     if (flagStartGame == false ){
         flagStartGame = true;
+        currentDifficulty = selectInputDifficulty.value;
         containerLetterOutput.textContent = "";
-        // get new name function call
+        targetName = filterDataset(flagLeagueSelected, dataset);
         generateGrid();
         flagGameActive = true;
         buttonStartGame.textContent = "Stop Game"
+
     } else if (flagStartGame == true){
         flagStartGame = false;
         flagGameActive = false;
@@ -78,42 +120,10 @@ function startGameInit(){
     }
    
 }
-// ------------------------------ Feature difficulty button ----------------------
-
-
-
-//difficulty map
-let difficultMap = {
-    easy: 8,
-    medium: 7,
-    hard: 6,
-}
-let inputDifficulty = document.getElementById("selectDifficulty");
-let currentDifficulty = inputDifficulty.value;
-
-
-inputDifficulty.addEventListener("change", event => difficultySet(event));
-
-
-console.log(currentDifficulty);
-
-
-function difficultySet(event){
-    currentDifficulty = event.target.value;
-}
-
-// function to filter / create sublist 
-
-function filterDataset(flagsLeagueSelected, dataset) {
-
-    let selectedName = "Messi";
-    return selectedName;
-}
-
 
 // select random name from filtered list
 
-let targetName = filterDataset(flagsLeagueSelected, dataset);
+
 let gridLength = targetName.length;
 
 
@@ -164,7 +174,8 @@ function keyPress(event){
       
 }
 
-// updatedword
+
+///// updatedword
 //add logic here for delete and enter
 function updateWord(wordToUpdate, keyInput) {
     console.log(keyInput);
