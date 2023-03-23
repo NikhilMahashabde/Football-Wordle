@@ -51,12 +51,30 @@ let flagsLeagueSelected = {
     "EPL": true,
 }
 
-let currentDifficulty = "easy";
+// ------------------------------ Feature difficulty button ----------------------
+//difficulty map
 let difficultMap = {
     easy: 10,
     medium: 8,
     hard: 7,
 }
+let inputDifficulty = document.getElementById("selectDifficulty");
+let currentDifficulty = inputDifficulty.value;
+
+
+inputDifficulty.addEventListener("change", event => difficultySet(event));
+
+
+console.log(currentDifficulty);
+
+
+function difficultySet(event){
+    currentDifficulty = event.target.value;
+    console.log(currentDifficulty);
+    startGame() ;
+}
+
+
 
 // function to filter / create sublist 
 
@@ -80,14 +98,35 @@ containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`
 
 //loop over and create N lines 
 
-for (y=0; y<difficultMap[currentDifficulty]; y++){
-    for (let x = 0; x<gridLength; x++){
-        let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
-        newNode.classList.add("charInputBox");
-        newNode.maxLength = 1;
-        newNode.id = `${x}.${y}`;
+function startGame() {
+
+    // get new word
+    // default current word to nothing
+    containerLetterOutput.textContent = "";
+    generateGrid();
+
+
+   
+
+   
+
+
+}
+
+//generate grid
+function generateGrid(){
+
+    for (y=0; y<difficultMap[currentDifficulty]; y++){
+        for (let x = 0; x<gridLength; x++){
+            let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
+            newNode.classList.add("charInputBox");
+            newNode.maxLength = 1;
+            newNode.id = `${x}.${y}`;
+        }
     }
 }
+
+
    
     //
 
@@ -153,4 +192,3 @@ function mapCurrentWordToLine(currentWord, currentLine){
     }
 
 }
-//
