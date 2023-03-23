@@ -1,22 +1,28 @@
 #containerLetterOutput {
-    grid-template-columns: auto repeat(5, 100px) auto;
+  
     display: grid;
-    justify-items: center;
-
-    justify-content: center;
+    grid-auto-rows: 45px;
+   
+    justify-self: center;
+    align-self: center;
     
 }
 
 .charInputBox {
-    width: 8%;
+    width: 60%;
+    height: 25px;
     background-color: rgb(225, 234, 234);
-    padding: 8px 30px;
+    border: 1px solid red;
+    padding: 8px 5px;
     margin: 1px 0;
  /*   box-sizing: border-box; */
 }
 
+
+
 #keyboardContainerTopRow, #keyboardContainerMiddleRow, #keyboardContainerBottomRow {
     display: flex;
+    height: 80px;
    
 
 }
@@ -27,14 +33,25 @@
     padding: 15px;
     border: 2px grey solid;
     text-align: center;
+
+    transition-property: background-color;
+    transition-delay: 50ms;
+  
+}
+
+.keyboardKeys:hover {
+    background-color: rgb(8, 110, 110);
+    
 }
 
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-auto-rows: 1fr;
+    grid-auto-rows: 500px 250px;
     justify-items: center;
     justify-content: center;
+
+    height: 800px;
 }
 
 /* test */
