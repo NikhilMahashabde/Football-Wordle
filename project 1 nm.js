@@ -7,6 +7,7 @@ let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRo
 let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
 let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
 let selectInputDifficulty = document.getElementById("selectDifficulty");
+let containerLetterOutput = document.getElementById("containerLetterOutput"); 
 let buttonStartGame = document.getElementById("startGame")
 
 ///// EVENT LISTNERS
@@ -17,6 +18,8 @@ let buttonStartGame = document.getElementById("startGame")
 
 let currentDifficulty = "";
 let targetName = "";
+let currentWord = "";
+let currentLine = "";
 
 ///// FLAGS /////
 
@@ -103,38 +106,35 @@ function filterDataset(flagLeagueSelected, dataset) {
 //start button feature
 function startGameInit(){
 
-    if (flagStartGame == false ){
+    if (flagGameActive == false ){
         flagStartGame = true;
+        currentWord  = "";
+        currentLine = 0;
         currentDifficulty = selectInputDifficulty.value;
         containerLetterOutput.textContent = "";
         targetName = filterDataset(flagLeagueSelected, dataset);
         generateGrid();
         flagGameActive = true;
         buttonStartGame.textContent = "Stop Game"
+        flagStartGame = false;
 
-    } else if (flagStartGame == true){
+    } else if (flagGameActive == true){
         flagStartGame = false;
         flagGameActive = false;
         flagGameEnded = true;
+        //call function to end game. 
         buttonStartGame.textContent = "Start Game"
     }
    
 }
 
-// select random name from filtered list
-
-
-let gridLength = targetName.length;
-
-
-//grid container create
-let containerLetterOutput = document.getElementById("containerLetterOutput");    
-containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
-
 //loop over and create N lines 
 
 //generate grid
 function generateGrid(){
+
+    let gridLength = targetName.length;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
 
     for (y=0; y<difficultMap[currentDifficulty]; y++){
         for (let x = 0; x<gridLength; x++){
@@ -156,9 +156,6 @@ function generateElement(type, parent, ...options){
 
 //-----------------------------------------------
 //handle logic for key press event. 
-
-let currentWord = "";
-let currentLine = 0;
 
 function keyPress(event){
 
