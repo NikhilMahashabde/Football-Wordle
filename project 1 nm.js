@@ -48,7 +48,6 @@ function displayKeyboard(displayKeysMap){
 
 }
 
-
 // function to generate random name from the list of players. 
 // Optional take into account selected league
 
@@ -68,12 +67,11 @@ function startGameInit(){
 
 
 
-
 //difficulty map
 let difficultMap = {
-    easy: 10,
-    medium: 8,
-    hard: 7,
+    easy: 8,
+    medium: 7,
+    hard: 6,
 }
 let inputDifficulty = document.getElementById("selectDifficulty");
 let currentDifficulty = inputDifficulty.value;
@@ -173,20 +171,22 @@ function keyPress(event){
 // updatedword
 //add logic here for delete and enter
 function updateWord(wordToUpdate, keyInput) {
-    
+    console.log(keyInput);
     switch (keyInput){
         case ("del"):
             return (wordToUpdate.substring(0,wordToUpdate.length-1));
 
         break;
-        case ("enter"):
+        case ("Enter"):
+            console.log("entered")
+            return currentWord;
 
         break;
         default:
             if (currentWord.length < targetName.length){
-                return (wordToUpdate.concat(keyInput));
+                return wordToUpdate.concat(keyInput);
             } else {
-                return wordToUpdate;
+                return currentWord;
             }
   
         break;
