@@ -2,6 +2,8 @@
 //flags
 
 let flagStartGame = false;
+let flagGameActive = false;
+let flagGameEnded = false; 
 
 
 //Dataset container - tba import from excel or JSON real list 
@@ -20,6 +22,7 @@ let displayKeysMap = {
 let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
 let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
 let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
+let buttonStartGame = document.getElementById("startGame")
 
 displayKeyboard(displayKeysMap);
 
@@ -59,9 +62,21 @@ let flagsLeagueSelected = {
 
 //start button
 function startGameInit(){
-    flagStartGame = true;
-    startGame()
 
+    if (flagStartGame == false ){
+        flagStartGame = true;
+        containerLetterOutput.textContent = "";
+        // get new name function call
+        generateGrid();
+        flagGameActive = true;
+        buttonStartGame.textContent = "Stop Game"
+    } else if (flagStartGame == true){
+        flagStartGame = false;
+        flagGameActive = false;
+        flagGameEnded = true;
+        buttonStartGame.textContent = "Start Game"
+    }
+   
 }
 // ------------------------------ Feature difficulty button ----------------------
 
@@ -108,23 +123,6 @@ containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`
 
 //loop over and create N lines 
 
-function startGame() {
-
-    if (flagStartGame = true){
-        
-        containerLetterOutput.textContent = "";
-        generateGrid();
-
-    } else {
-        return; 
-    }
-
-    // get new word
-    // default current word to nothing
-    
-
-}
-
 //generate grid
 function generateGrid(){
 
@@ -138,8 +136,6 @@ function generateGrid(){
     }
 }
   
-//
-
 //element generate function to avoid repitition
 function generateElement(type, parent, ...options){
     
@@ -148,7 +144,6 @@ function generateElement(type, parent, ...options){
     return newNode
 }
 
-
 //-----------------------------------------------
 //handle logic for key press event. 
 
@@ -156,7 +151,8 @@ let currentWord = "";
 let currentLine = 0;
 
 function keyPress(event){
-    if (flagStartGame){
+
+    if (flagGameActive){
     
         keyInput = event.target.textContent;
         //while currentline < max line depending on difficulty>
