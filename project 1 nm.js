@@ -20,6 +20,7 @@ let currentDifficulty = "";
 let targetName = "";
 let currentWord = "";
 let currentLine = "";
+let wordGuesses = []; 
 
 ///// FLAGS /////
 
@@ -53,6 +54,7 @@ let difficultMap = {
     medium: 7,
     hard: 6,
 }
+
 
 
 ///////////////////////////////// PAGE INITIALISATION /////////////////////////////
@@ -100,6 +102,32 @@ function filterDataset(flagLeagueSelected, dataset) {
 // function to generate random name from the list of players. 
 
 
+//generate grid
+function generateGrid(){
+
+    let gridLength = targetName.length;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
+
+    for (y=0; y<difficultMap[currentDifficulty]; y++){
+        for (let x = 0; x<gridLength; x++){
+            let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
+            newNode.classList.add("charInputBox");
+            newNode.maxLength = 1;
+            newNode.id = `${x}.${y}`;
+        }
+    }
+}
+
+//element generate function to avoid repitition
+function generateElement(type, parent, ...options){
+    
+    let newNode = document.createElement(type);
+    parent.appendChild(newNode);
+    return newNode
+}
+
+
+
 
 //////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
 
@@ -128,45 +156,23 @@ function startGameInit(){
    
 }
 
-//loop over and create N lines 
-
-//generate grid
-function generateGrid(){
-
-    let gridLength = targetName.length;
-    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
-
-    for (y=0; y<difficultMap[currentDifficulty]; y++){
-        for (let x = 0; x<gridLength; x++){
-            let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
-            newNode.classList.add("charInputBox");
-            newNode.maxLength = 1;
-            newNode.id = `${x}.${y}`;
-        }
-    }
-}
   
-//element generate function to avoid repitition
-function generateElement(type, parent, ...options){
-    
-    let newNode = document.createElement(type);
-    parent.appendChild(newNode);
-    return newNode
-}
-
-//-----------------------------------------------
 //handle logic for key press event. 
 
 function keyPress(event){
 
     if (flagGameActive){
-    
         keyInput = event.target.textContent;
-        //while currentline < max line depending on difficulty>
-
         currentWord = updateWord(currentWord, keyInput) 
-        console.log(currentWord, currentWord.length)
         mapCurrentWordToLine(currentWord, currentLine);
+
+        if (currentWord.length == 5 && keyInput == "Enter"){
+            wordGuesses.push(currentWord)
+            currentWord = "";
+            currentLine++;
+        }
+       
+
     }
       
 }
@@ -182,7 +188,6 @@ function updateWord(wordToUpdate, keyInput) {
 
         break;
         case ("Enter"):
-            console.log("entered")
             return currentWord;
 
         break;
