@@ -3,11 +3,13 @@
 ///// NODE ELEMENTS /////
 
 // elements targets for global use. 
+let keyboardContainer = document.querySelector("#containerKeyboardInput")
 let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
 let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
 let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
 let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
+
 let buttonStartGame = document.getElementById("startGame")
 
 ///// EVENT LISTNERS
@@ -65,6 +67,10 @@ displayKeyboard(displayKeysMap);
 ////////////////////////////////// FUNCTIONS ///////////////////////////
 
 function displayKeyboard(displayKeysMap){
+    keyboardContainerTopRowDiv.textContent = "";
+    keyboardContainerMiddleRowDiv.textContent = '';
+    keyboardContainerBottomRowDiv.textContent - '';
+
     displayKeysMap.topRow.forEach(element => {
         let key = generateElement("div", keyboardContainerTopRowDiv)
         key.classList.add("keyboardKeys");
@@ -134,13 +140,37 @@ function handleGuess(){
             if (targetName.includes(lastGuess[x])){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterIncludes");
+
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                divKeyInput.forEach(element => {
+                    if (element.textContent == lastGuess[x]){
+                        element.classList.add("letterIncludes");
+                    }
+                });
+
+            } else {
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                divKeyInput.forEach(element => {
+                    if (element.textContent == lastGuess[x]){
+                        element.classList.add("notInWord");
+                    }
+                });
+
             }
 
             if (lastGuess[x] == targetName[x]){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterCorrect");
-                //highlight the letter on keyboard
-                //highlight the cell 
+
+                
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                divKeyInput.forEach(element => {
+                    if (element.textContent == lastGuess[x]){
+                        element.classList.add("letterCorrect");
+                        
+                    }
+                });
+
             }
 
         }
