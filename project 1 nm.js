@@ -16,11 +16,12 @@ let buttonStartGame = document.getElementById("startGame")
 
 ////// GLOBAL VARIABLES
 
-let currentDifficulty = "";
 let targetName = "";
 let currentWord = "";
 let currentLine = "";
 let wordGuessList = []; 
+let inputGridRows = "";
+let gridLength = "";
 
 ///// FLAGS /////
 
@@ -49,7 +50,7 @@ let displayKeysMap = {
 }
 
 //game difficulty map 
-let difficultMap = {
+let mapDifficulty = {
     easy: 8,
     medium: 7,
     hard: 6,
@@ -105,10 +106,9 @@ function filterDataset(flagLeagueSelected, dataset) {
 //generate grid
 function generateGrid(){
 
-    let gridLength = targetName.length;
     containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 50px)`;
 
-    for (y=0; y<difficultMap[currentDifficulty]; y++){
+    for (y=0; y<inputGridRows; y++){
         for (let x = 0; x<gridLength; x++){
             let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
             newNode.classList.add("charInputBox");
@@ -132,12 +132,10 @@ function handleGuess(){
     wordGuessList.push(currentWord);
     lastGuess = currentWord;
     let lastLine = currentLine;
-    currentWord = "";
-    currentLine++;
     
+      
     for (guess of wordGuessList){
-        console.log(guess, targetName)
-         
+                 
         for (let x = 0; x < lastGuess.length; x++){
             if (targetName.includes(lastGuess[x])){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
@@ -153,15 +151,25 @@ function handleGuess(){
 
         }
 
-        if (guess == targetName){
-            //reset game states
-            console.log('you win')
-            startGameInit();
-        } 
     }
+    if (guess == targetName){
+        //reset game states
+        console.log('you win')
+        endGame();
+       
+    } else if (inputGridRows == (currentLine+1)){
+        alert('you lose')
+        endGame();
+    }
+    currentLine++;
+    currentWord = "";
 }
 
-
+function endGame(){
+    flagGameEnded = true;
+    flagGameActive = false;
+    buttonStartGame.textContent = "Play Again"
+}
 
 //////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
 
@@ -173,7 +181,8 @@ function startGameInit(){
         flagStartGame = true;
         currentWord  = "";
         currentLine = 0;
-        currentDifficulty = selectInputDifficulty.value;
+        inputGridRows = mapDifficulty[selectInputDifficulty.value];
+        gridLength = targetName.length;
         containerLetterOutput.textContent = "";
         targetName = filterDataset(flagLeagueSelected, dataset);
         generateGrid();
@@ -203,22 +212,17 @@ function keyPress(event){
 
         if (currentWord.length == 5 && keyInput == "Enter"){
             handleGuess()
-        }
-        if (flagGameEnded){
-            
-        }
+        } 
 
     }
-
-    
-      
+   
 }
 
 
 ///// updatedword
 //add logic here for delete and enter
 function updateWord(wordToUpdate, keyInput) {
-    console.log(keyInput);
+    
     switch (keyInput){
         case ("del"):
             return (wordToUpdate.substring(0,wordToUpdate.length-1));

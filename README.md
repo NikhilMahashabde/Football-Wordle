@@ -1,9 +1,16 @@
-//goal and purpose
+//////////////goal and purpose
 
-is to learn and apply complex tehcniques, rather tahn do one liners
+* is to learn and apply complex tehcniques, rather tahn do one liners
+* code quality and readability
+* trading off run time/efficiency to improve readability -OOP interfacing
 
-code quality and readability
-trading off run time/efficiency to improve readability -OOP interfacing
+Coding Philosophy
+* Mobile first
+
+Feature Phillosophy
+* Carrot and stick
+* sense of urgency
+
 // features -base game - tab over after input - timer for how long to solve - clues
 
 optional monetisation
@@ -16,22 +23,3 @@ avergae per solution
 
 // code layout -CSS styling
 
-- 
-// html structure
-
-- header
-
-- body
-
-	- grid for input divs
-		- 5 x 6 inputs 
-			lines tab across automatically
-			- focus on last time and hit enter will enter
-
-		
-- footer
-
-- sidebar
-// java script
-
-- array of all words
