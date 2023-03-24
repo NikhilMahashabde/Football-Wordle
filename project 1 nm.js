@@ -56,8 +56,6 @@ let mapDifficulty = {
     hard: 6,
 }
 
-
-
 ///////////////////////////////// PAGE INITIALISATION /////////////////////////////
 //generate the keyboard appearance and layout. 
 
@@ -72,7 +70,6 @@ function displayKeyboard(displayKeysMap){
         key.classList.add("keyboardKeys");
         key.textContent = element;
         key.addEventListener("click", event => {keyPress(event)});
-        
     });
 
     displayKeysMap.middleRow.forEach(element => {
@@ -92,23 +89,23 @@ function displayKeyboard(displayKeysMap){
 // filter dataset to get a random value;
 // Optional take into account selected league
 function filterDataset(flagLeagueSelected, dataset) {
-
+    //random data generate value;
+    //function etc
+    // function to generate random name from the list of players. 
     let selectedName = "messi".toLowerCase();
     return selectedName;
 }
 
 
-//random data generate value;
-//function etc
-// function to generate random name from the list of players. 
+
+
 
 
 //generate grid
 function generateGrid(){
 
     containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 50px)`;
-
-    for (y=0; y<inputGridRows; y++){
+    for (let y=0; y<inputGridRows; y++){
         for (let x = 0; x<gridLength; x++){
             let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
             newNode.classList.add("charInputBox");
@@ -118,14 +115,11 @@ function generateGrid(){
     }
 }
 
-//element generate function to avoid repitition
 function generateElement(type, parent, ...options){
-    
     let newNode = document.createElement(type);
     parent.appendChild(newNode);
     return newNode
 }
-
 
 function handleGuess(){
 
@@ -177,14 +171,14 @@ function endGame(){
 function startGameInit(){
 
     if (flagGameActive == false ){
-        flagGameEnded = false;
         flagStartGame = true;
+        flagGameEnded = false;
         currentWord  = "";
         currentLine = 0;
         inputGridRows = mapDifficulty[selectInputDifficulty.value];
+        targetName = filterDataset(flagLeagueSelected, dataset);
         gridLength = targetName.length;
         containerLetterOutput.textContent = "";
-        targetName = filterDataset(flagLeagueSelected, dataset);
         generateGrid();
         flagGameActive = true;
         buttonStartGame.textContent = "Stop Game"
@@ -199,10 +193,7 @@ function startGameInit(){
     }
    
 }
-
   
-//handle logic for key press event. 
-
 function keyPress(event){
 
     if (flagGameActive){
@@ -210,17 +201,13 @@ function keyPress(event){
         currentWord = updateWord(currentWord, keyInput) 
         mapCurrentWordToLine(currentWord, currentLine);
 
-        if (currentWord.length == 5 && keyInput == "Enter"){
+        if (currentWord.length == targetName.length && keyInput == "Enter"){
             handleGuess()
         } 
-
     }
-   
 }
 
-
 ///// updatedword
-//add logic here for delete and enter
 function updateWord(wordToUpdate, keyInput) {
     
     switch (keyInput){
