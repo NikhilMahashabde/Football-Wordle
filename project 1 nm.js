@@ -46,9 +46,9 @@ let dataset = [
 
 // keyboard keyset to display
 let displayKeysMap = {
-    topRow: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "del"],
-    middleRow: ["a", "s", "d", "f", "g", "h", "j", "k", "l", "Enter"],
-    bottomRow: ["z", "x", "c", "v", "b", "n", "m"]
+    topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
+    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "DEL"],
+    bottomRow: ["Z", "X", "C", "V", "B", "N", "M", "ENTER"]
 }
 
 //game difficulty map 
@@ -98,13 +98,9 @@ function filterDataset(flagLeagueSelected, dataset) {
     //random data generate value;
     //function etc
     // function to generate random name from the list of players. 
-    let selectedName = "messi".toLowerCase();
+    let selectedName = "MESSI".toUpperCase();
     return selectedName;
 }
-
-
-
-
 
 
 //generate grid
@@ -170,11 +166,8 @@ function handleGuess(){
                         
                     }
                 });
-
             }
-
         }
-
     }
     if (guess == targetName){
         //reset game states
@@ -214,11 +207,14 @@ function startGameInit(){
         buttonStartGame.textContent = "Stop Game"
         flagStartGame = false;
 
+        divKeyInput = keyboardContainer.querySelectorAll("div > div > div")
+        divKeyInput.forEach(divElement => {
+            divElement.classList.remove("letterCorrect", "notInWord", "letterIncludes")
+        })
+
     } else if (flagGameActive == true){
         flagStartGame = false;
-        flagGameActive = false;
-        flagGameEnded = true;
-        //call function to end game. 
+        endGame()
         buttonStartGame.textContent = "Start Game"
     }
    
@@ -231,7 +227,7 @@ function keyPress(event){
         currentWord = updateWord(currentWord, keyInput) 
         mapCurrentWordToLine(currentWord, currentLine);
 
-        if (currentWord.length == targetName.length && keyInput == "Enter"){
+        if (currentWord.length == targetName.length && keyInput == "ENTER"){
             handleGuess()
         } 
     }
@@ -241,11 +237,11 @@ function keyPress(event){
 function updateWord(wordToUpdate, keyInput) {
     
     switch (keyInput){
-        case ("del"):
+        case ("DEL"):
             return (wordToUpdate.substring(0,wordToUpdate.length-1));
 
         break;
-        case ("Enter"):
+        case ("ENTER"):
             return currentWord;
 
         break;
