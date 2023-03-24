@@ -20,7 +20,7 @@ let currentDifficulty = "";
 let targetName = "";
 let currentWord = "";
 let currentLine = "";
-let wordGuesses = []; 
+let wordGuessList = []; 
 
 ///// FLAGS /////
 
@@ -92,7 +92,7 @@ function displayKeyboard(displayKeysMap){
 // Optional take into account selected league
 function filterDataset(flagLeagueSelected, dataset) {
 
-    let selectedName = "Messi";
+    let selectedName = "messi".toLowerCase();
     return selectedName;
 }
 
@@ -106,7 +106,7 @@ function filterDataset(flagLeagueSelected, dataset) {
 function generateGrid(){
 
     let gridLength = targetName.length;
-    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 100px)`;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 50px)`;
 
     for (y=0; y<difficultMap[currentDifficulty]; y++){
         for (let x = 0; x<gridLength; x++){
@@ -127,6 +127,44 @@ function generateElement(type, parent, ...options){
 }
 
 
+function handleGuess(){
+
+    wordGuessList.push(currentWord);
+    lastGuess = currentWord;
+    let lastLine = currentLine;
+    currentWord = "";
+    currentLine++;
+    
+    
+
+    for (guess of wordGuessList){
+        console.log(guess, targetName)
+        if (guess == targetName){
+            //reset game states
+            startGameInit();
+        } else {
+            for (let x = 0; x < lastGuess.length; x++){
+                if (targetName.includes(lastGuess[x])){
+                    let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
+                    divGuessIncludes.classList.add("letterIncludes");
+                }
+
+                if (lastGuess[x] == targetName[x]){
+                    let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
+                    divGuessIncludes.classList.add("letterCorrect");
+                    //highlight the letter on keyboard
+                    //highlight the cell 
+                }
+
+            }
+
+
+        }
+
+    }
+
+}
+
 
 
 //////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
@@ -135,6 +173,7 @@ function generateElement(type, parent, ...options){
 function startGameInit(){
 
     if (flagGameActive == false ){
+        flagGameEnded = false;
         flagStartGame = true;
         currentWord  = "";
         currentLine = 0;
@@ -167,13 +206,15 @@ function keyPress(event){
         mapCurrentWordToLine(currentWord, currentLine);
 
         if (currentWord.length == 5 && keyInput == "Enter"){
-            wordGuesses.push(currentWord)
-            currentWord = "";
-            currentLine++;
+            handleGuess()
         }
-       
+        if (flagGameEnded){
+            alert("you win")
+        }
 
     }
+
+    
       
 }
 
