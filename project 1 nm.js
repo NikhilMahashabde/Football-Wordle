@@ -135,34 +135,30 @@ function handleGuess(){
     currentWord = "";
     currentLine++;
     
-    
-
     for (guess of wordGuessList){
         console.log(guess, targetName)
-        if (guess == targetName){
-            //reset game states
-            startGameInit();
-        } else {
-            for (let x = 0; x < lastGuess.length; x++){
-                if (targetName.includes(lastGuess[x])){
-                    let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
-                    divGuessIncludes.classList.add("letterIncludes");
-                }
-
-                if (lastGuess[x] == targetName[x]){
-                    let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
-                    divGuessIncludes.classList.add("letterCorrect");
-                    //highlight the letter on keyboard
-                    //highlight the cell 
-                }
-
+         
+        for (let x = 0; x < lastGuess.length; x++){
+            if (targetName.includes(lastGuess[x])){
+                let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
+                divGuessIncludes.classList.add("letterIncludes");
             }
 
+            if (lastGuess[x] == targetName[x]){
+                let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
+                divGuessIncludes.classList.add("letterCorrect");
+                //highlight the letter on keyboard
+                //highlight the cell 
+            }
 
         }
 
+        if (guess == targetName){
+            //reset game states
+            console.log('you win')
+            startGameInit();
+        } 
     }
-
 }
 
 
@@ -209,7 +205,7 @@ function keyPress(event){
             handleGuess()
         }
         if (flagGameEnded){
-            alert("you win")
+            
         }
 
     }
