@@ -4,7 +4,7 @@ h5 {
 }
 body{
 
-    background-color: black;
+    background-color: rgb(18, 18, 19);
 }
 #containerLetterOutput {
   
@@ -18,8 +18,11 @@ body{
 .charInputBox {
     width: 25px;
     height: 25px;
-    background-color: rgb(224, 224, 224);
-    border: 2px solid rgb(255, 255, 255);
+    background-color: rgb(18, 18, 19);
+    border: 2px solid rgb(58, 58, 60);
+    color: white;
+    font-weight: 900;
+    text-align: center;
     padding: 10px;
     margin: 5px;
  /*   box-sizing: border-box; */
@@ -28,27 +31,25 @@ body{
 #keyboardContainerTopRow, #keyboardContainerMiddleRow, #keyboardContainerBottomRow {
     display: flex;
     height: 35px;
-   
-
 }
 
 .keyboardKeys {
     height: 20px;
     width: 20px;
-    padding: 2px;
-    background-color: rgb(187, 187, 187);
+    background-color: #818384;
+    color: white;
     margin: 3px;
+    padding: 4px;
     border-radius: 10%;
     text-align: center;
-
+    font-weight: 900;
     transition-property: background-color;
-    transition-delay: 50ms;
+    
   
 }
 
 .keyboardKeys:hover {
     background-color: rgb(8, 110, 110);
-    
 }
 
 #gameContainer {
@@ -62,20 +63,16 @@ body{
 
 
 .letterIncludes {
-
-    background-color: rgb(199, 202, 29);
+    background-color: #B59F3B;
 }
 /* test */
 
 /* . for class, # for id */
 
 .letterCorrect {
-
-    background-color: rgb(9, 136, 26);
-
+    background-color: #538D4E;
 }
 
 .notInWord {
-
-    background-color: rgb(189, 3, 3);
+    background-color: rgb(58, 58, 58);
 }

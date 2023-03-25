@@ -47,7 +47,7 @@ let dataset = [
 // keyboard keyset to display
 let displayKeysMap = {
     topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
-    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "DEL"],
+    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "\u2612"],
     bottomRow: ["Z", "X", "C", "V", "B", "N", "M", "ENTER"]
 }
 
@@ -87,6 +87,9 @@ function displayKeyboard(displayKeysMap){
     displayKeysMap.bottomRow.forEach(element => {
         let key = generateElement("div", keyboardContainerBottomRowDiv)
         key.textContent = element;
+        if (key.textContent == "ENTER"){
+            key.style.width = "82px";
+        }
         key.classList.add("keyboardKeys");
         key.addEventListener("click", event => {keyPress(event)});
     });
@@ -120,7 +123,7 @@ function generateGrid(){
 function generateElement(type, parent, ...options){
     let newNode = document.createElement(type);
     parent.appendChild(newNode);
-    return newNode
+    return newNode;
 }
 
 function handleGuess(){
@@ -237,7 +240,7 @@ function keyPress(event){
 function updateWord(wordToUpdate, keyInput) {
     
     switch (keyInput){
-        case ("DEL"):
+        case ("\u2612"):
             return (wordToUpdate.substring(0,wordToUpdate.length-1));
 
         break;
@@ -256,7 +259,6 @@ function updateWord(wordToUpdate, keyInput) {
     };
         
 };
-
 
 function mapCurrentWordToLine(currentWord, currentLine){
     let y = currentLine;
