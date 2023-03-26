@@ -56,6 +56,7 @@ let displayKeysMap = {
     middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "\u2612"],
     bottomRow: ["Z", "X", "C", "V", "B", "N", "M", "ENTER"]
 }
+let validKeys = Object.values(displayKeysMap).flat()
 
 //game difficulty map 
 let mapDifficulty = {
@@ -115,7 +116,7 @@ function filterDataset(flagLeagueSelected, playerData) {
     //function etc
     // function to generate random name from the list of players. 
     let nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
-    while (nameFilter.length > 10){
+    while (nameFilter.length > 15){
         nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     }
     return nameFilter;
@@ -149,7 +150,6 @@ function handleGuess(){
     lastGuess = currentWord;
     let lastLine = currentLine;
     
-      
     for (guess of wordGuessList){
                  
         for (let x = 0; x < lastGuess.length; x++){
@@ -212,7 +212,7 @@ function endGame(){
 //start button feature
 function startGameInit(){
 
-    if (flagGameActive == false ){
+    if (!flagGameActive){
         flagStartGame = true;
         flagGameEnded = false;
         currentWord  = "";
@@ -234,27 +234,32 @@ function startGameInit(){
     } else if (flagGameActive == true){
         flagStartGame = false;
         endGame()
+        
         buttonStartGame.textContent = "Start Game"
-    }
+    };
    
-}
+};
   
 function keyPress(event){
+    if (!flagGameActive) return;
+    keyInput = event.target.textContent;
+    console.log(keyInput)
+    handleKeyInput(keyInput);
+}
 
-    if (flagGameActive){
-        keyInput = event.target.textContent;
-        currentWord = updateWord(currentWord, keyInput) 
-        mapCurrentWordToLine(currentWord, currentLine);
+function handleKeyInput(keyInput){
 
-        if (currentWord.length == targetName.length && keyInput == "ENTER"){
-            handleGuess()
-        } 
+    currentWord = updateWord(currentWord, keyInput) 
+    mapCurrentWordToLine(currentWord, currentLine);
+    console.log(currentWord);
+        
+    if (currentWord.length == targetName.length && keyInput == "ENTER"){
+        handleGuess()
     }
 }
 
 ///// updatedword
 function updateWord(wordToUpdate, keyInput) {
-    
     switch (keyInput){
         case ("\u2612"):
             return (wordToUpdate.substring(0,wordToUpdate.length-1));
@@ -285,3 +290,19 @@ function mapCurrentWordToLine(currentWord, currentLine){
     }
 
 }
+
+
+document.addEventListener('keydown', (event) => {
+    if (!flagGameActive) return;
+    keyInput = event.key.toUpperCase();
+    keyInput == "BACKSPACE" ? keyInput = "\u2612" : keyInput;
+
+    // chat gpt to the rescue.. as the spread operator was not spreading.. turns out it doesnt work on 2d. 
+    
+    if (!validKeys.includes(keyInput)) return;
+    
+    console.log(keyInput)
+    handleKeyInput(keyInput);
+
+    // Alert the key name and key code on keydown
+});

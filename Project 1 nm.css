@@ -1,10 +1,11 @@
-h5 {
+h1 {
     text-align: center;
     color: white;
+ 
 }
 body{
 
-    background-color: rgb(18, 18, 19);
+     background-color: rgb(18, 18, 19); 
 }
 #containerLetterOutput {
   
@@ -21,9 +22,9 @@ body{
 
 .charInputBox {
     
-    font-size: clamp(32px, 6vw, 60px);
+    font-size: clamp(32px, 6vw, 50px);
 
-    background-color: rgb(18, 18, 19);
+    background-color: rgb(18, 18, 19); 
     border: 2px solid rgb(58, 58, 60);
     color: white;
 
@@ -61,7 +62,7 @@ body{
 
 .keyboardKeys {
 
-    font-size: clamp(32px, 8vw, 60px);
+    font-size: clamp(32px, 8vw, 50px);
     width: clamp(32px, 8vw, 60px);
 
     background-color: #818384;
@@ -100,7 +101,6 @@ body{
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    
     grid-template-rows: 50% 30% auto;
     justify-items: center;
     justify-content: center;
@@ -120,5 +120,15 @@ body{
 }
 
 .notInWord {
-    background-color: rgb(58, 58, 58);
+    background-color: rgb(32, 32, 32);
+    color: #818384;
+}
+
+#settingsDiv {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(120px, 200px));
+    justify-items: fill;
+    justify-content: center;
+
+
 }
