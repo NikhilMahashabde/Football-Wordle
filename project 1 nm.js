@@ -9,11 +9,15 @@ let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMi
 let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
 let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
-
 let buttonStartGame = document.getElementById("startGame")
+let settingsButton = document.querySelector("#settings");
+let hintsButton = document.querySelector("#hints");
 
 ///// EVENT LISTNERS
 //static event listeners
+buttonStartGame.addEventListener('click', resetFocus);
+hintsButton.addEventListener('click', resetFocus);
+settingsButton.addEventListener('click', resetFocus);
 
 
 ////// GLOBAL VARIABLES
@@ -293,16 +297,27 @@ function mapCurrentWordToLine(currentWord, currentLine){
 
 
 document.addEventListener('keydown', (event) => {
+    document.body.focus();
+    document.activeElement.blur();
     if (!flagGameActive) return;
     keyInput = event.key.toUpperCase();
     keyInput == "BACKSPACE" ? keyInput = "\u2612" : keyInput;
-
-    // chat gpt to the rescue.. as the spread operator was not spreading.. turns out it doesnt work on 2d. 
     
     if (!validKeys.includes(keyInput)) return;
-    
-    console.log(keyInput)
+    console.log(document.activeElement)
     handleKeyInput(keyInput);
 
     // Alert the key name and key code on keydown
 });
+
+
+
+
+
+
+function resetFocus(){
+    hintsButton.blur();
+    settingsButton.blur();
+    myButton.blur();
+    document.body.focus();
+};
