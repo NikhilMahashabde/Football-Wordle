@@ -22,8 +22,9 @@ let targetName = "";
 let currentWord = "";
 let currentLine = "";
 let wordGuessList = []; 
-let inputGridRows = "";
-let gridLength = "";
+let inputGridRows = 8;
+let gridLength = 10;
+let playerData;
 
 ///// FLAGS /////
 
@@ -38,11 +39,16 @@ let flagLeagueSelected = {
 
 ///// DATASETS AND MAPS /////
 
+// JSON import
+fetch('https://nikhilmahashabde.github.io/Football-Wordle/playerData.json')
+    .then((response) => response.json())
+    .then((data) => {
+        playerData = data;
+    });
+
 //Dataset containers and - tba import from excel or JSON real list 
-let dataset = [
-    {name: "L. Messi", club: "barcelona", league: "Laliga"}, 
-    {name: "Christiano Ronaldo", club: "al-hilal", league: "EPL"}
-];
+
+
 
 // keyboard keyset to display
 let displayKeysMap = {
@@ -63,6 +69,7 @@ let mapDifficulty = {
 
 // keyboard
 displayKeyboard(displayKeysMap);
+generateGrid();
 
 ////////////////////////////////// FUNCTIONS ///////////////////////////
 
@@ -81,6 +88,9 @@ function displayKeyboard(displayKeysMap){
     displayKeysMap.middleRow.forEach(element => {
         let key = generateElement("div", keyboardContainerMiddleRowDiv)
         key.textContent = element;
+        if(key.textContent == "\u2612"){
+            key.classList.add("deleteKey");
+        }
         key.classList.add("keyboardKeys")
         key.addEventListener("click", event => {keyPress(event)});
     });
@@ -88,7 +98,7 @@ function displayKeyboard(displayKeysMap){
         let key = generateElement("div", keyboardContainerBottomRowDiv)
         key.textContent = element;
         if (key.textContent == "ENTER"){
-            key.style.width = "82px";
+            key.classList.add("enterKey");
         }
         key.classList.add("keyboardKeys");
         key.addEventListener("click", event => {keyPress(event)});
@@ -97,19 +107,26 @@ function displayKeyboard(displayKeysMap){
 
 // filter dataset to get a random value;
 // Optional take into account selected league
-function filterDataset(flagLeagueSelected, dataset) {
+function filterDataset(flagLeagueSelected, playerData) {
+
+    randomPlayerNumber = Math.floor(Math.random() * playerData.length)
+
     //random data generate value;
     //function etc
     // function to generate random name from the list of players. 
-    let selectedName = "MESSI".toUpperCase();
-    return selectedName;
+    let nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
+    while (nameFilter.length > 10){
+        nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
+    }
+    return nameFilter;
 }
 
 
 //generate grid
 function generateGrid(){
 
-    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, 50px)`;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, clamp(32px, 7vw, 60px)`;
+  
     for (let y=0; y<inputGridRows; y++){
         for (let x = 0; x<gridLength; x++){
             let newNode = generateElement("div", containerLetterOutput, 'id="sadgasg"', 'class="hi"');
@@ -173,11 +190,11 @@ function handleGuess(){
     }
     if (guess == targetName){
         //reset game states
-        console.log('you win')
+        console.log('you win', targetName)
         endGame();
        
     } else if (inputGridRows == (currentLine+1)){
-        console.log('you lose')
+        console.log('you lose', targetName)
         endGame();
     }
     currentLine++;
@@ -201,7 +218,7 @@ function startGameInit(){
         currentWord  = "";
         currentLine = 0;
         inputGridRows = mapDifficulty[selectInputDifficulty.value];
-        targetName = filterDataset(flagLeagueSelected, dataset);
+        targetName = filterDataset(flagLeagueSelected, playerData);
         gridLength = targetName.length;
         containerLetterOutput.textContent = "";
         generateGrid();
