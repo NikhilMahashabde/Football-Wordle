@@ -160,8 +160,7 @@ function handleGuess(){
             if (lastGuess[x] == targetName[x]){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterCorrect");
-
-                
+               
                 let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
                 divKeyInput.forEach(element => {
                     if (element.textContent == lastGuess[x]){
@@ -178,7 +177,7 @@ function handleGuess(){
         endGame();
        
     } else if (inputGridRows == (currentLine+1)){
-        alert('you lose')
+        console.log('you lose')
         endGame();
     }
     currentLine++;
