@@ -272,10 +272,9 @@ function keyPress(event){
 
 function handleKeyInput(keyInput){
 
-    currentWord = updateWord(currentWord, keyInput) 
+    currentWord = updateWord(currentWord, keyInput);
     mapCurrentWordToLine(currentWord, currentLine);
-    console.log(currentWord);
-        
+           
     if (currentWord.length == targetName.length && keyInput == "ENTER"){
         handleGuess()
     }
@@ -342,6 +341,14 @@ function revealHint(){
     
     if (!flagCluesActive) return;
     if (flagGameActive){
+
+        if (currentLine+1 == inputGridRows){
+            let newText = generateElement("p", clueContainer);
+            newText.textContent = "Last line left - no more clues"
+            flagCluesActive = false;
+            return;
+
+        }
         //generate random number for the 6 different clues
         
         if (cluesUsed.length == 6){
@@ -376,6 +383,10 @@ function revealHint(){
             break;
         }
         cluesUsed.push(randomClueNumber);
+        
+        currentWord = ".".repeat(targetName.length);
+        mapCurrentWordToLine(currentWord, currentLine);
+        handleGuess();
                 
     //increse line counter and fill the line with -----
 
