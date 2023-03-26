@@ -10,8 +10,10 @@ let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBo
 let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
 let buttonStartGame = document.getElementById("startGame")
-let settingsButton = document.querySelector("#settings");
-let hintsButton = document.querySelector("#hints");
+let settingsButton = document.querySelector("#settingsButton");
+let hintsButton = document.querySelector("#hintsButton");
+let clueContainer = document.getElementById("clueContainer");
+
 
 ///// EVENT LISTNERS
 //static event listeners
@@ -21,7 +23,7 @@ settingsButton.addEventListener('click', resetFocus);
 
 
 ////// GLOBAL VARIABLES
-
+let test = 1;
 let targetName = "";
 let currentWord = "";
 let currentLine = "";
@@ -29,12 +31,14 @@ let wordGuessList = [];
 let inputGridRows = 8;
 let gridLength = 10;
 let playerData;
+let cluesUsed = [];
 
 ///// FLAGS /////
 
 let flagStartGame = false;
 let flagGameActive = false;
 let flagGameEnded = false; 
+let flagCluesActive = true;
 
 let flagLeagueSelected = {
     "La Liga": false, 
@@ -67,6 +71,17 @@ let mapDifficulty = {
     easy: 8,
     medium: 7,
     hard: 6,
+}
+
+//clue map
+
+let clueToKeyMap = {
+    0: "Age",
+    1: "Photo",
+    2: "Nationality",
+    3: "Club",
+    4: "Position",
+    5: "Kit Number",
 }
 
 ///////////////////////////////// PAGE INITIALISATION /////////////////////////////
@@ -120,6 +135,7 @@ function filterDataset(flagLeagueSelected, playerData) {
     //function etc
     // function to generate random name from the list of players. 
     let nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
+    
     while (nameFilter.length > 15){
         nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     }
@@ -219,6 +235,8 @@ function startGameInit(){
     if (!flagGameActive){
         flagStartGame = true;
         flagGameEnded = false;
+        cluesUsed.length = 0;
+        flagCluesActive = true;
         currentWord  = "";
         currentLine = 0;
         inputGridRows = mapDifficulty[selectInputDifficulty.value];
@@ -234,6 +252,7 @@ function startGameInit(){
         divKeyInput.forEach(divElement => {
             divElement.classList.remove("letterCorrect", "notInWord", "letterIncludes")
         })
+        clueContainer.textContent = "";
 
     } else if (flagGameActive == true){
         flagStartGame = false;
@@ -310,14 +329,59 @@ document.addEventListener('keydown', (event) => {
     // Alert the key name and key code on keydown
 });
 
-
-
-
-
-
 function resetFocus(){
     hintsButton.blur();
     settingsButton.blur();
-    myButton.blur();
+    buttonStartGame.blur();
     document.body.focus();
 };
+
+
+
+function revealHint(){
+    
+    if (!flagCluesActive) return;
+    if (flagGameActive){
+        //generate random number for the 6 different clues
+        
+        if (cluesUsed.length == 6){
+            console.log(clueContainer.textContent);
+            let newText = generateElement("p", clueContainer);
+            newText.textContent = "No clues left!"
+            flagCluesActive = false;
+            return;
+        }
+
+        randomClueNumber = Math.floor(Math.random()*6);
+        while (cluesUsed.includes(randomClueNumber)){
+            randomClueNumber = Math.floor(Math.random()*6);
+        }
+             
+        //map the clues to each object's props
+        // depending on which one, do/display something
+        let cluetype = clueToKeyMap[randomClueNumber];
+        console.log(cluetype)
+        switch (cluetype){
+
+            case "Photo": 
+            let clueImage = generateElement("img", clueContainer)
+            clueImage.setAttribute("src", playerData[randomPlayerNumber][clueToKeyMap[randomClueNumber]])
+            clueImage.classList.add("playerImage")
+
+            break;
+            default:
+                let newText = generateElement("p", clueContainer);
+                newText.textContent = playerData[randomPlayerNumber][clueToKeyMap[randomClueNumber]];
+                
+            break;
+        }
+        cluesUsed.push(randomClueNumber);
+                
+    //increse line counter and fill the line with -----
+
+    } else {
+        clueContainer.textContent = "Game not started. Start game first!"
+    }
+
+   
+}

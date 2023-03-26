@@ -132,6 +132,9 @@ body{
     grid-template-columns: repeat(3, minmax(120px, 200px));
     justify-items: fill;
     justify-content: center;
+}
 
-
+.playerImage {
+   width: 300px;
+   filter: blur(5px);
 }
