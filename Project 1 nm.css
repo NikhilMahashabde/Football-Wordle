@@ -1,18 +1,39 @@
+/* IMPORTANT TO REMEMBER */
+/* . for class, # for id */
+/* . for class, # for id */
+/* . for class, # for id */
+/* . for class, # for id */
+/* . for class, # for id */
+
 body{
 
-     /* background-color: rgb(18, 18, 19);  */
+      background-color: rgb(18, 18, 19);  
+      
 }
 
 header {
     text-align: center;
+    
+}
+
+#headNavButtons {
+    max-width: 768px;
+   
+
+}
+
+#headerButtons {
+    display: flex;
+    max-width: 100%;
+
 }
 
 #containerLetterOutput {
   
     display: grid;
-    grid-template-columns: (auto, clamp(32px, 6vw, 6vw));
-    grid-auto-rows: clamp(32px, 6vw, 52px);
-    height: clamp(320px, 32vh, 500px);
+    grid-template-columns: (auto, clamp(32px, 5vw, 5vw));
+    grid-auto-rows: clamp(32px, 5vh, 52px);
+     /* height: clamp(320px, 32vh, 500px);  */
     justify-self: center;
     align-self: center;
     justify-content: center;
@@ -39,8 +60,10 @@ header {
  /*   box-sizing: border-box; */
 }
 
-#keyboardContainerTopRow, #keyboardContainerMiddleRow {
-
+#keyboardContainerTopRow, #keyboardContainerMiddleRow, #keyboardContainerBottomRow, #containerKeyboardInput {
+  
+    max-width: min(768px, 97vw); /* I'm so proud of this line of code ha ha */
+   
 /* 
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -50,29 +73,25 @@ header {
   
 }
 
-#keyboardContainerBottomRow {
-
     /* width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr) 3fr;
     grid-template-rows: 1fr;
     column-gap: 1px;
     row-gap: 1px; */
-}
 
 .keyboardKeys {
 
-    /* font-size: clamp(32px, 8vw, 50px);
-    width: clamp(32px, 8vw, 60px); */
-    height: 4wh;
-    background-color: #818384;
+    font-size: clamp(24px, 3vh, 36px);
+    /* width: clamp(32px, 8vw, 60px); */
+    
+
     color: white;
     margin: 1px;
-    border-radius: 10%;
-    text-align: center;
-    font-weight: 900;
-    transition-property: background-color;
     padding: 0px;
+    font-weight: 900;
+    /* transition-property: background-color; */
+    
     
  /*
     display: flex;
@@ -81,12 +100,19 @@ header {
 
 }
 
-.keyboardKeys:hover {
+/* .keyboardKeys:hover {
     background-color: rgb(8, 110, 110);
-}
+} */
 
 
 .enterKey {
+    
+    display: flex;
+    align-items: stretch;
+    justify-content: center; 
+
+
+
     /* font-size: clamp(28px, 7vw, 48px);
     width: clamp(99px, 25vw, 180px);
     display: flex;
@@ -101,11 +127,10 @@ header {
     justify-content: center; */
 }
 
-
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50vh 30vh auto;
+    grid-template-rows: 50vh 20vh auto;
     justify-items: center;
     justify-content: center;
    
@@ -115,9 +140,6 @@ header {
 .letterIncludes {
     background-color: #B59F3B;
 }
-/* test */
-
-/* . for class, # for id */
 
 .letterCorrect {
     background-color: #538D4E;

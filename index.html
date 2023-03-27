@@ -96,36 +96,45 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container" id="headerTitle">
             <!-- container for header grid -->
             <div class="row">
-                <div class="col-sm">
-                    <h1 class="display-1">FOOTBALL WORDLE</h1>
-                </div>
-            </div>
-            <div class="row g-0">
                 <div class="col">
-                    <!-- start game button -->
-                    <button id="startGame" class="btn btn-dark" onclick="startGameInit()">
-                        Start Game 
-                    </button>
-                </div>
-                <div class="col">
-                    <!-- settings button -->
-                    <button  class="btn btn-dark" data-toggle="modal" data-target="#settingsModal" id="settingsButton">
-                        Settings
-                    </button>
-                </div>
-                <div class="col">
-                    <!-- hints button -->
-                    <button  class="btn btn-dark" data-toggle="modal" data-target="#modalHints" id="hintsButton">
-                        Hints
-                    </button>
                     
                 </div>
+                <div class="col-10">
+                    <h1 class="display-1">FOOTBALL WORDLE</h1>
+                </div>
+                
+                <button  class="col-1 btn btn-dark headerButtons" data-toggle="modal" data-target="#settingsModal" id="settingsButton">
+                        Settings
+                </button>
+   
             </div>
-
         </div>
+
+        <div class="container" id="headNavButtons"> 
+            <div class="row g-0">
+                       
+                <!-- settings button -->
+                <button  class="col-4 btn btn-dark headerButtons" data-toggle="modal" data-target="#settingsModal" id="settingsButton">
+                    Your score: 
+                </button>
+                
+
+                <!-- start game button -->
+                <button id="startGame" class="col-4 btn btn-dark headerButtons" onclick="startGameInit()">
+                    Start Game 
+                </button>
+            
+                <!-- hints button -->
+                <button  class="col-4 btn btn-dark headerButtons" data-toggle="modal" data-target="#modalHints" id="hintsButton">
+                    Hints
+                </button>
+
+            </div>
+        </div>
+
     </header>
     
     <section id="gameContainer">
@@ -138,13 +147,13 @@
         <!-- keyboard starts here 
         <div id="containerKeyboardInput">
             <div id="keyboardContainerTopRow">
-                <!-- top row keys go here
+               top row keys go here
             </div>
             <div id="keyboardContainerMiddleRow">
-                <!-- mid row keys go here 
+                 mid row keys go here 
             </div>
             <div id="keyboardContainerBottomRow">
-                <!-- bottom row keys go here 
+                 bottom row keys go here 
             </div>
         </div>
         -->

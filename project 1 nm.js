@@ -67,8 +67,8 @@ fetch('https://nikhilmahashabde.github.io/Football-Wordle/playerData.json')
 // keyboard keyset to display
 let displayKeysMap = {
     topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
-    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "T"],
-    bottomRow: ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "\u2612"]
+    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "-"],
+    bottomRow: ["\u23CE", "Z", "X", "C", "V", "B", "N", "M", "\u2612"]
 }
 let validKeys = Object.values(displayKeysMap).flat()
 
@@ -105,24 +105,24 @@ function displayKeyboard(displayKeysMap){
     keyboardContainerBottomRowDiv.textContent - '';
 
     displayKeysMap.topRow.forEach(element => {
-        let key = generateElement("div", keyboardContainerTopRowDiv)
-        key.classList.add("keyboardKeys", "col");
+        let key = generateElement("button", keyboardContainerTopRowDiv)
+        key.classList.add("btn", "btn-secondary", "keyboardKeys", "col");
         key.textContent = element;
         key.addEventListener("click", event => {keyPress(event)});
     });
 
     displayKeysMap.middleRow.forEach(element => {
-        let key = generateElement("div", keyboardContainerMiddleRowDiv)
-        key.classList.add("keyboardKeys", "col");
+        let key = generateElement("button", keyboardContainerMiddleRowDiv)
+        key.classList.add("btn", "btn-secondary", "keyboardKeys", "col");
         key.textContent = element;
         
         key.addEventListener("click", event => {keyPress(event)});
     });
     displayKeysMap.bottomRow.forEach(element => {
-        let key = generateElement("div", keyboardContainerBottomRowDiv)
+        let key = generateElement("button", keyboardContainerBottomRowDiv)
         key.textContent = element;
-        key.classList.add("keyboardKeys", "col")
-        if (key.textContent == "ENTER"){
+        key.classList.add("btn", "btn-secondary", "keyboardKeys", "col")
+        if (key.textContent == "\u23CE"){
             key.classList.add("enterKey", "col-2");
         }
         if(key.textContent == "\u2612"){
@@ -185,18 +185,20 @@ function handleGuess(){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterIncludes");
 
-                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > button");
+               
                 divKeyInput.forEach(element => {
                     if (element.textContent == lastGuess[x]){
-                        element.classList.add("letterIncludes");
+                        element.classList.add("btn","btn-warning");
                     }
                 });
 
             } else {
-                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > button");
+                
                 divKeyInput.forEach(element => {
                     if (element.textContent == lastGuess[x]){
-                        element.classList.add("notInWord");
+                        element.classList.add("btn", "btn-dark");
                     }
                 });
 
@@ -206,10 +208,12 @@ function handleGuess(){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterCorrect");
                
-                let divKeyInput = keyboardContainer.querySelectorAll("div > div > div");
+                let divKeyInput = keyboardContainer.querySelectorAll("div > div > button");
+                
                 divKeyInput.forEach(element => {
                     if (element.textContent == lastGuess[x]){
-                        element.classList.add("letterCorrect");
+                        element.classList.remove("btn-warning");
+                        element.classList.add("btn","btn-success");
                         
                     }
                 });
@@ -283,7 +287,7 @@ function handleKeyInput(keyInput){
     currentWord = updateWord(currentWord, keyInput);
     mapCurrentWordToLine(currentWord, currentLine);
            
-    if (currentWord.length == targetName.length && keyInput == "ENTER"){
+    if (currentWord.length == targetName.length && keyInput == "\u23CE"){
         handleGuess()
     }
 }
@@ -295,7 +299,7 @@ function updateWord(wordToUpdate, keyInput) {
             return (wordToUpdate.substring(0,wordToUpdate.length-1));
 
         break;
-        case ("ENTER"):
+        case ("\u23CE"):
             return currentWord;
 
         break;
@@ -328,6 +332,8 @@ document.addEventListener('keydown', (event) => {
     if (!flagGameActive) return;
     keyInput = event.key.toUpperCase();
     keyInput == "BACKSPACE" ? keyInput = "\u2612" : keyInput;
+    keyInput == "ENTER" ? keyInput = "\u23CE" : keyInput;
+
     
     if (!validKeys.includes(keyInput)) return;
     console.log(document.activeElement)
