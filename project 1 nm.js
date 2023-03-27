@@ -106,26 +106,27 @@ function displayKeyboard(displayKeysMap){
 
     displayKeysMap.topRow.forEach(element => {
         let key = generateElement("div", keyboardContainerTopRowDiv)
-        key.classList.add("keyboardKeys", "col-1");
+        key.classList.add("keyboardKeys", "col");
         key.textContent = element;
         key.addEventListener("click", event => {keyPress(event)});
     });
 
     displayKeysMap.middleRow.forEach(element => {
         let key = generateElement("div", keyboardContainerMiddleRowDiv)
-        key.classList.add("keyboardKeys", "col-1");
+        key.classList.add("keyboardKeys", "col");
         key.textContent = element;
-        if(key.textContent == "\u2612"){
-            key.classList.add("deleteKey");
-        }
+        
         key.addEventListener("click", event => {keyPress(event)});
     });
     displayKeysMap.bottomRow.forEach(element => {
         let key = generateElement("div", keyboardContainerBottomRowDiv)
         key.textContent = element;
-        key.classList.add("keyboardKeys", "col-1")
+        key.classList.add("keyboardKeys", "col")
         if (key.textContent == "ENTER"){
             key.classList.add("enterKey", "col-2");
+        }
+        if(key.textContent == "\u2612"){
+            key.classList.add("deleteKey", "col-2");
         }
         key.addEventListener("click", event => {keyPress(event)});
     });
