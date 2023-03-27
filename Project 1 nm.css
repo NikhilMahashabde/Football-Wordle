@@ -1,21 +1,18 @@
-h1 {
-    text-align: center;
-    color: white;
-    width: 100%;
-    display: grid;
-   
- 
-}
 body{
 
-     background-color: rgb(18, 18, 19); 
+     /* background-color: rgb(18, 18, 19);  */
 }
+
+header {
+    text-align: center;
+}
+
 #containerLetterOutput {
   
     display: grid;
-    grid-template-columns: (auto, clamp(32px, 8vw, 60px));
-    grid-auto-rows: clamp(32px, 6vw, 60px);
-    height: clamp(320px, 48vw, 500px);
+    grid-template-columns: (auto, clamp(32px, 6vw, 32px));
+    grid-auto-rows: clamp(32px, 4vw, 52px);
+    height: clamp(320px, 32vh, 500px);
     justify-self: center;
     align-self: center;
     justify-content: center;
@@ -25,7 +22,7 @@ body{
 
 .charInputBox {
     
-    font-size: clamp(32px, 6vw, 50px);
+    font-size: clamp(24px, 2vh, 40px);
 
     background-color: rgb(18, 18, 19); 
     border: 2px solid rgb(58, 58, 60);
@@ -44,28 +41,28 @@ body{
 
 #keyboardContainerTopRow, #keyboardContainerMiddleRow {
 
-
+/* 
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: 1fr;
     column-gap: 1px;
-    row-gap: 1px;
+    row-gap: 1px; */
   
 }
 
 #keyboardContainerBottomRow {
 
-    width: 100%;
+    /* width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr) 3fr;
     grid-template-rows: 1fr;
     column-gap: 1px;
-    row-gap: 1px;
+    row-gap: 1px; */
 }
 
 .keyboardKeys {
 
-    font-size: clamp(32px, 8vw, 50px);
+    /* font-size: clamp(32px, 8vw, 50px);
     width: clamp(32px, 8vw, 60px);
 
     background-color: #818384;
@@ -78,23 +75,23 @@ body{
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 
 }
 
 .enterKey {
-    font-size: clamp(28px, 7vw, 48px);
+    /* font-size: clamp(28px, 7vw, 48px);
     width: clamp(99px, 25vw, 180px);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
 .deleteKey{
-    font-size: clamp(28px, 6vw, 48px);
+    /* font-size: clamp(28px, 6vw, 48px);
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; */
 }
 
 .keyboardKeys:hover {
@@ -104,7 +101,7 @@ body{
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50% 30% auto;
+    grid-template-rows: 50vh 30vh auto;
     justify-items: center;
     justify-content: center;
    

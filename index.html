@@ -14,9 +14,8 @@
 <body>
 
     <header class="border-bottom">
-        
+        <!--  OLD CODE TO REmOVE LATER IFNEEDED NON BOOTSTRAP.
         <h1 class="display-1">FOOTBALL WORDLE</h1>
-        
         <div id="settingsDiv">
 
             
@@ -34,7 +33,7 @@
 
 
         </div>
-              
+        -->
         <!-- Modal -->
         <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -95,33 +94,73 @@
                 </div>
                 </div>
             </div>
+        </div>
+
+        <div class="container">
+            <!-- container for header grid -->
+            <div class="row">
+                <div class="col-sm">
+                    <h1 class="display-1">FOOTBALL WORDLE</h1>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col">
+                    <!-- start game button -->
+                    <button id="startGame" class="btn btn-dark" onclick="startGameInit()">
+                        Start Game 
+                    </button>
+                </div>
+                <div class="col">
+                    <!-- settings button -->
+                    <button  class="btn btn-dark" data-toggle="modal" data-target="#settingsModal" id="settingsButton">
+                        Settings
+                    </button>
+                </div>
+                <div class="col">
+                    <!-- hints button -->
+                    <button  class="btn btn-dark" data-toggle="modal" data-target="#modalHints" id="hintsButton">
+                        Hints
+                    </button>
+                    
+                </div>
             </div>
 
-
-
-
-
-
+        </div>
     </header>
     
     <section id="gameContainer">
-        
+                
         <!-- output grid starts here -->
         <div id="containerLetterOutput">
    
         </div>
 
-        <!-- keyboard starts here -->
+        <!-- keyboard starts here 
         <div id="containerKeyboardInput">
             <div id="keyboardContainerTopRow">
-                <!-- top row keys go here -->
+                <!-- top row keys go here
             </div>
             <div id="keyboardContainerMiddleRow">
-                <!-- mid row keys go here -->
+                <!-- mid row keys go here 
             </div>
             <div id="keyboardContainerBottomRow">
+                <!-- bottom row keys go here 
+            </div>
+        </div>
+        -->
+
+        <div id="containerKeyboardInput" class="container">
+
+            <div id="keyboardContainerTopRow" class="row">
+                <!-- mid row keys go here -->
+            </div>
+            <div id="keyboardContainerMiddleRow" class="row">
+                <!-- mid row keys go here -->
+            </div>
+            <div id="keyboardContainerBottomRow" class="row">
                 <!-- bottom row keys go here -->
             </div>
+   
         </div>
 
 

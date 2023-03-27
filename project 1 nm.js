@@ -14,6 +14,12 @@ let settingsButton = document.querySelector("#settingsButton");
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
 
+//test
+let TkeyboardContainer = document.querySelector("#TcontainerKeyboardInput")
+let TkeyboardContainerTopRowDiv = document.getElementById("TkeyboardContainerTopRow");
+let TkeyboardContainerMiddleRowDiv = document.getElementById("TkeyboardContainerMiddleRow");
+let TkeyboardContainerBottomRowDiv = document.getElementById("TkeyboardContainerBottomRow");
+
 
 ///// EVENT LISTNERS
 //static event listeners
@@ -61,8 +67,8 @@ fetch('https://nikhilmahashabde.github.io/Football-Wordle/playerData.json')
 // keyboard keyset to display
 let displayKeysMap = {
     topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
-    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "\u2612"],
-    bottomRow: ["Z", "X", "C", "V", "B", "N", "M", "ENTER"]
+    middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "T"],
+    bottomRow: ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "\u2612"]
 }
 let validKeys = Object.values(displayKeysMap).flat()
 
@@ -100,30 +106,31 @@ function displayKeyboard(displayKeysMap){
 
     displayKeysMap.topRow.forEach(element => {
         let key = generateElement("div", keyboardContainerTopRowDiv)
-        key.classList.add("keyboardKeys");
+        key.classList.add("keyboardKeys", "col-1");
         key.textContent = element;
         key.addEventListener("click", event => {keyPress(event)});
     });
 
     displayKeysMap.middleRow.forEach(element => {
         let key = generateElement("div", keyboardContainerMiddleRowDiv)
+        key.classList.add("keyboardKeys", "col-1");
         key.textContent = element;
         if(key.textContent == "\u2612"){
             key.classList.add("deleteKey");
         }
-        key.classList.add("keyboardKeys")
         key.addEventListener("click", event => {keyPress(event)});
     });
     displayKeysMap.bottomRow.forEach(element => {
         let key = generateElement("div", keyboardContainerBottomRowDiv)
         key.textContent = element;
+        key.classList.add("keyboardKeys", "col-1")
         if (key.textContent == "ENTER"){
-            key.classList.add("enterKey");
+            key.classList.add("enterKey", "col-2");
         }
-        key.classList.add("keyboardKeys");
         key.addEventListener("click", event => {keyPress(event)});
     });
 }
+
 
 // filter dataset to get a random value;
 // Optional take into account selected league
