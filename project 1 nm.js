@@ -154,7 +154,7 @@ function filterDataset(flagLeagueSelected, playerData) {
 //generate grid
 function generateGrid(){
 
-    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, clamp(32px, 7vw, 60px)`;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, clamp(28px, 8vw, 60px)`;
   
     for (let y=0; y<inputGridRows; y++){
         for (let x = 0; x<gridLength; x++){
@@ -260,9 +260,9 @@ function startGameInit(){
         buttonStartGame.textContent = "Stop Game"
         flagStartGame = false;
 
-        divKeyInput = keyboardContainer.querySelectorAll("div > div > div")
+        divKeyInput = keyboardContainer.querySelectorAll("div > div > button")
         divKeyInput.forEach(divElement => {
-            divElement.classList.remove("letterCorrect", "notInWord", "letterIncludes")
+            divElement.classList.remove("btn-success", "btn-dark", "btn-warning")
         })
         clueContainer.textContent = "";
 

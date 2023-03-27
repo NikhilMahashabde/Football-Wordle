@@ -31,8 +31,8 @@ header {
 #containerLetterOutput {
   
     display: grid;
-    grid-template-columns: (auto, clamp(32px, 5vw, 5vw));
-    grid-auto-rows: clamp(32px, 5vh, 52px);
+    /* grid-template-columns: (auto, clamp(32px, 5vw, 5vw)); */
+    grid-auto-rows: 5vh;
      /* height: clamp(320px, 32vh, 500px);  */
     justify-self: center;
     align-self: center;
@@ -50,7 +50,6 @@ header {
     color: white;
 
     font-weight: 900;
-    
     padding: 1px;
     margin: 1px;
 
@@ -82,7 +81,7 @@ header {
 
 .keyboardKeys {
 
-    font-size: clamp(24px, 3vh, 36px);
+    font-size: clamp(24px, 2vh, 36px);
     /* width: clamp(32px, 8vw, 60px); */
     
 
@@ -130,7 +129,7 @@ header {
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 50vh 20vh auto;
+    grid-template-rows: 43vh 20vh auto;
     justify-items: center;
     justify-content: center;
    
