@@ -32,7 +32,7 @@ header {
   
     display: grid;
     /* grid-template-columns: (auto, clamp(32px, 5vw, 5vw)); */
-    grid-auto-rows: 5vh;
+    grid-auto-rows: Min(5vh, clamp(28px, 8vw, 60px));
      /* height: clamp(320px, 32vh, 500px);  */
     justify-self: center;
     align-self: center;

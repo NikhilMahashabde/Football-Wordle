@@ -210,11 +210,10 @@ function filterDataset(flagLeagueSelected, playerData) {
     return nameFilter;
 }
 
-
 //generate grid
 function generateGrid(){
 
-    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, clamp(28px, 8vw, 60px)`;
+    containerLetterOutput.style.gridTemplateColumns = `repeat(${gridLength}, min(5vh, clamp(28px, 8vw, 60px))`;
   
     for (let y=0; y<inputGridRows; y++){
         for (let x = 0; x<gridLength; x++){
@@ -239,7 +238,7 @@ function handleGuess(){
     let lastLine = currentLine;
     
     for (guess of wordGuessList){
-                 
+      
         for (let x = 0; x < lastGuess.length; x++){
             if (targetName.includes(lastGuess[x])){
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
@@ -296,9 +295,7 @@ function endGame(condition){
     fillPlayerCard();
     buttonWL.click();
 
-    
-
-     //reset game states
+    //reset game states
 
     flagGameEnded = true;
     flagGameActive = false;
@@ -306,7 +303,6 @@ function endGame(condition){
 }
 
 function fillPlayerCard(){
-    
     
     tdName.textContent = targetName;
     tdKitNumber.textContent = playerData[randomPlayerNumber]["Kit Number"]
@@ -323,7 +319,6 @@ function fillPlayerCard(){
 
 //start button feature
 function startGameInit(){
-    
 
     if (!flagGameActive){
         setGameStartStates()
@@ -387,7 +382,6 @@ function resetActiveVariables(){
     clueContainer.textContent = "";
 
 }
-
   
 function keyPress(event){
     if (!flagGameActive) return;
@@ -440,7 +434,6 @@ function mapCurrentWordToLine(currentWord, currentLine){
 
 }
 
-
 document.addEventListener('keydown', (event) => {
     document.body.focus();
     document.activeElement.blur();
@@ -464,8 +457,6 @@ function resetFocus(){
     document.body.focus();
 };
 
-
-
 function revealHint(){
     
     if (!flagCluesActive) return;
@@ -476,9 +467,7 @@ function revealHint(){
             clueContainer.textContent = "Last line left - no more clues"
             flagCluesActive = false;
             return;
-
         }
-       
         
         if (cluesUsed.length == 6){
             console.log(clueContainer.textContent);
@@ -487,7 +476,6 @@ function revealHint(){
             flagCluesActive = false;
             return;
         }
-
          //generate random number for the 6 different clues
 
         randomClueNumber = Math.floor(Math.random()*6);
@@ -497,11 +485,12 @@ function revealHint(){
              
         //map the clues to each object's props
         // depending on which one, do/display something
+
         let cluetype = clueToKeyMap[randomClueNumber];
 
-// let tdCluePosition = document.getElementById("tdCluePosition");
+        // let tdCluePosition = document.getElementById("tdCluePosition");
 
-    switch (cluetype){
+        switch (cluetype){
             case "Photo": 
                 imgCluePlayerPhoto.setAttribute("src", playerCard["Photo"])
                 imgCluePlayerPhoto.classList.remove("superBlur");
@@ -526,13 +515,13 @@ function revealHint(){
                 tdCluePosition.textContent = playerCard["Position"];
             break;
         }
+
+        //increse line counter and fill the line with -----
         cluesUsed.push(randomClueNumber);
-        
         currentWord = ".".repeat(targetName.length);
         mapCurrentWordToLine(currentWord, currentLine);
         handleGuess();
-                
-    //increse line counter and fill the line with -----
+        
 
     } else {
         clueContainer.textContent = "Game not started. Start game first!";

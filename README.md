@@ -16,28 +16,24 @@ Feature Phillosophy
 
 // TO add
 
-win or lose condition - show player name, picture,
-close box
+[done]win or lose condition - show player name, picture,
+[done]close box
 
-settings button icon and drop box reset
+how to play instructions
+
+settings button icon 
+drop box reset
 
 timer and score
 
 local storage of stats
+-optional monetisation
 
 stats icon
-
-
-
-
-
-optional monetisation
-
-statistics for nerds
-
 average time for line 1
 avergae per solution
 -user profiles/log in.
 
-// code layout -CSS styling
+
+
 
