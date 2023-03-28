@@ -160,3 +160,8 @@ header {
    width: 300px;
    filter: blur(5px);
 }
+
+.superBlur{
+    width: 300px;
+    filter: blur(100px);
+}
