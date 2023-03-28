@@ -15,6 +15,7 @@
 
     <header class="border-bottom">
         <!--  OLD CODE TO REmOVE LATER IFNEEDED NON BOOTSTRAP.
+
         <h1 class="display-1">FOOTBALL WORDLE</h1>
         <div id="settingsDiv">
 
@@ -34,8 +35,9 @@
 
         </div>
         -->
-        <!-- Modal -->
-        <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        
+        <!-- Settings Modal -->
+        <div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -72,19 +74,65 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="headerHints">Hints</h5>
+                    <h5 class="modal-title" id="headerHints">Reveal a random clue</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <h5>Reveal a random clue. One attempt will be deducted.</h5>
-                    <button  class="btn btn-secondary" id="buttonHintRequest" onclick="revealHint()">
-                        Reveal Clue
-                    </button>
+                  
+                    <div class="container">
+                        <div id="containerLine" class="row align-items-center no-gutters">
+                            <button display="inline" class="col btn btn-secondary" id="buttonHintRequest" onclick="revealHint()">
+                               Cost: 1 attempt
+                            </button>
+        
+                            <button class="col btn btn-secondary" id="buttonPayClue" onclick="revealHint()">
+                                Cost: monetisation 
+                            </button>
+
+                        </div>
+                        
+                    </div>
+
                     <div id="clueContainer">
 
-                    </div>
+                    </div> 
+
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Name</th>
+                            <td id="tdClueName">??????</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Kit Number</th>
+                            <td id="tdClueKitNumber">??????</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Club</th>
+                            <td id="tdClueClub">??????</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Nationality</th>
+                            <td id="tdClueNationality">??????</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Age</th>
+                            <td id="tdClueAge">??????</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Position</th>
+                            <td id="tdCluePosition">??????</td>
+                          </tr>
+                          <div id="divCluePlayerPhoto">
+
+                          </div>
+
+                        </tbody>
+                      </table>
+
+
 
                                  
                 </div>
@@ -96,6 +144,98 @@
             </div>
         </div>
 
+        <!-- Game instructions modal -->
+        <div class="modal fade" id="modalInstructions" tabindex="-1" role="dialog" aria-labelledby="modalInstructions" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="headingInstructions">How to play</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                   
+                    <div id=difficulty>
+                        <label for="gameDifficulty">
+                            Difficulty
+                        </label>
+                        <br />
+                        <select id="selectDifficulty" name="gameDifficulty">
+                            <option value="easy">Farmer's League [Easy]</option>
+                            <option value="medium">Europa League [Medium]</option>
+                            <option value="hard">Champions League [Hard]</option>
+                        </select>
+                    </div>
+                                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+                </div>
+            </div>
+        </div>
+        <button id="instructionsModalTrigger" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalInstructions" style="display:none;"></button>
+
+        <!-- Win/loss Modal -->
+        <div class="modal fade" id="modalWL" tabindex="-1" role="dialog" aria-labelledby="modalWLLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="headingWL"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Name</th>
+                            <td id="tdName">Mark</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Kit Number</th>
+                            <td id="tdKitNumber">Jacob</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Club</th>
+                            <td id="tdClub">Larry</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Nationality</th>
+                            <td id="tdNationality">Larry</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Age</th>
+                            <td id="tdAge">Larry</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Position</th>
+                            <td id="tdPosition">Larry</td>
+                          </tr>
+                          <div id="divPlayerPhoto">
+
+                          </div>
+
+                        </tbody>
+                      </table>
+
+                </div>
+                                 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                </div>
+                </div>
+            </div>
+        </div>
+        <button id="btnModalWL" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalWL" style="display:none;"></button>
+
+        
         <div class="container" id="headerTitle">
             <!-- container for header grid -->
             <div class="row">

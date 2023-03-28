@@ -13,6 +13,27 @@ let buttonStartGame = document.getElementById("startGame")
 let settingsButton = document.querySelector("#settingsButton");
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
+let buttonWL = document.getElementById("btnModalWL");
+let headingWLModal = document.getElementById("headingWL")
+let tdName = document.getElementById("tdName");
+let tdKitNumber = document.getElementById("tdKitNumber");
+let tdClub = document.getElementById("tdClub");
+let tdNationality = document.getElementById("tdNationality");
+let tdAge = document.getElementById("tdAge");
+let tdPosition = document.getElementById("tdPosition");
+let divPlayerPhoto = document.getElementById("divPlayerPhoto");
+let imgPlayerPhoto = generateElement("img", divPlayerPhoto);
+
+let buttonHints = document.getElementById("hintsButton")
+
+let tdClueName = document.getElementById("tdClueName");
+let tdClueKitNumber = document.getElementById("tdClueKitNumber");
+let tdClueClub = document.getElementById("tdClueClub");
+let tdClueNationality = document.getElementById("tdClueNationality");
+let tdClueAge = document.getElementById("tdClueAge");
+let tdCluePosition = document.getElementById("tdCluePosition");
+let divCluePlayerPhoto = document.getElementById("divCluePlayerPhoto");
+let imgCluePlayerPhoto = generateElement("img", divCluePlayerPhoto);
 
 //test
 let TkeyboardContainer = document.querySelector("#TcontainerKeyboardInput")
@@ -36,8 +57,12 @@ let currentLine = "";
 let wordGuessList = []; 
 let inputGridRows = 8;
 let gridLength = 10;
+let playerCard;
 let playerData;
 let cluesUsed = [];
+const win = "WIN";
+const lose = "LOSE";
+let inactiveTimer;
 
 ///// FLAGS /////
 
@@ -69,6 +94,31 @@ let displayKeysMap = {
     topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
     middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "-"],
     bottomRow: ["\u23CE", "Z", "X", "C", "V", "B", "N", "M", "\u2612"]
+}
+
+let positionToFullPositionMap = {
+    "\"<span class=\"\"pos pos2\"\">RWB\"" : "Right Wing Back",
+    "\"<span class=\"\"pos pos3\"\">RB\"": "Right Back",
+    "\"<span class=\"\"pos pos4\"\">RCB\"": "Right Center Back",
+    "\"<span class=\"\"pos pos5\"\">CB\"": "Center Back",
+    "\"<span class=\"\"pos pos6\"\">LCB\"": "Left Center Back",
+    "\"<span class=\"\"pos pos7\"\">LB\"": "Left Back",
+    "\"<span class=\"\"pos pos8\"\">LWB\"": "Left Wing Back",
+    "\"<span class=\"\"pos pos9\"\">RDM\"": "Right Defensive Mid",
+    "\"<span class=\"\"pos pos10\"\">CDM\"": "Center Defensive Mid", 
+    "\"<span class=\"\"pos pos11\"\">LDM\"": "Left Defensive Mid", 
+    "\"<span class=\"\"pos pos12\"\">RM\"": "Right Midfield",
+    "\"<span class=\"\"pos pos13\"\">RCM\"": "Right Center Mid",
+    "\"<span class=\"\"pos pos14\"\">CM\"": "Center Midfield",
+    "\"<span class=\"\"pos pos15\"\">LCM\"": "Left Center Mid",
+    "\"<span class=\"\"pos pos16\"\">LM\"": "Left Midfield",
+    "\"<span class=\"\"pos pos17\"\">RAM\"": "Right Attacking Mid",
+    "\"<span class=\"\"pos pos18\"\">CAM\"": "Center Attacking Mid",
+    "\"<span class=\"\"pos pos19\"\">LAM\"": "Left Attacking Mid", 
+
+
+
+
 }
 let validKeys = Object.values(displayKeysMap).flat()
 
@@ -145,8 +195,10 @@ function filterDataset(flagLeagueSelected, playerData) {
     let nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     
     while (nameFilter.length > 15){
+        randomPlayerNumber = Math.floor(Math.random() * playerData.length);
         nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     }
+    playerCard = playerData[randomPlayerNumber];
     return nameFilter;
 }
 
@@ -221,59 +273,111 @@ function handleGuess(){
         }
     }
     if (guess == targetName){
-        //reset game states
-        console.log('you win', targetName)
-        endGame();
+        endGame(win);
        
     } else if (inputGridRows == (currentLine+1)){
-        console.log('you lose', targetName)
-        endGame();
+        endGame(lose);
     }
     currentLine++;
     currentWord = "";
 }
 
-function endGame(){
+function endGame(condition){
+
+    headingWLModal.textContent = `You ${condition}!`;
+    fillPlayerCard();
+    buttonWL.click();
+
+    
+
+     //reset game states
+
     flagGameEnded = true;
     flagGameActive = false;
     buttonStartGame.textContent = "Play Again"
+}
+
+function fillPlayerCard(){
+    
+    
+    tdName.textContent = targetName;
+    tdKitNumber.textContent = playerData[randomPlayerNumber]["Kit Number"]
+    tdClub.textContent  = playerData[randomPlayerNumber]["Club"]
+    tdNationality.textContent  = playerData[randomPlayerNumber]["Nationality"]
+    tdAge.textContent  = playerData[randomPlayerNumber]["Age"]
+    tdPosition.textContent  = playerData[randomPlayerNumber]["Position"]
+    imgPlayerPhoto.setAttribute("src", `${ playerData[randomPlayerNumber]["Photo"]}`)
+    imgPlayerPhoto.style.width = "300px";
+
 }
 
 //////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
 
 //start button feature
 function startGameInit(){
+    
 
     if (!flagGameActive){
-        flagStartGame = true;
-        flagGameEnded = false;
-        cluesUsed.length = 0;
-        flagCluesActive = true;
-        currentWord  = "";
-        currentLine = 0;
-        inputGridRows = mapDifficulty[selectInputDifficulty.value];
+        setGameStartStates()
         targetName = filterDataset(flagLeagueSelected, playerData);
+        resetActiveVariables()
+       
         gridLength = targetName.length;
-        containerLetterOutput.textContent = "";
+        inputGridRows = mapDifficulty[selectInputDifficulty.value];
         generateGrid();
-        flagGameActive = true;
-        buttonStartGame.textContent = "Stop Game"
+        
+        buttonStartGame.textContent = "End Game"
         flagStartGame = false;
-
-        divKeyInput = keyboardContainer.querySelectorAll("div > div > button")
-        divKeyInput.forEach(divElement => {
-            divElement.classList.remove("btn-success", "btn-dark", "btn-warning")
-        })
-        clueContainer.textContent = "";
 
     } else if (flagGameActive == true){
         flagStartGame = false;
-        endGame()
-        
+        endGame("GAVE UP")
         buttonStartGame.textContent = "Start Game"
     };
    
 };
+
+function setGameStartStates(){
+    flagStartGame = true;
+    flagGameEnded = false;
+    flagGameActive = true;
+}
+function resetActiveVariables(){
+    cluesUsed.length = 0;
+    flagCluesActive = true;
+    currentWord  = "";
+    currentLine = 0;
+    containerLetterOutput.textContent = "";
+    divKeyInput = keyboardContainer.querySelectorAll("div > div > button")
+        divKeyInput.forEach(divElement => {
+            divElement.classList.remove("btn-success", "btn-dark", "btn-warning")
+    })
+    
+    tdName.textContent = "";
+    tdKitNumber.textContent = "";
+    tdClub.textContent  = "";
+    tdNationality.textContent  = "";
+    tdAge.textContent  = "";
+    tdPosition.textContent  = "";
+    imgPlayerPhoto.setAttribute("src", "");
+
+    tdClueName.textContent = "??????????";
+    tdClueKitNumber.textContent = "??????????";
+    tdClueClub.textContent = "??????????";
+    tdClueNationality.textContent = "??????????";
+    tdClueAge.textContent = "??????????";
+    tdCluePosition.textContent = "??????????";
+    
+    imgCluePlayerPhoto.setAttribute("src", playerCard["Photo"])
+    imgCluePlayerPhoto.classList.add("superBlur");
+    
+    inactiveTimer = setTimeout(function() {
+        buttonHints.click();
+    }, 30000);
+    clueContainer.textContent = "";
+
+}
+
   
 function keyPress(event){
     if (!flagGameActive) return;
@@ -284,6 +388,7 @@ function keyPress(event){
 
 function handleKeyInput(keyInput){
 
+    resetInactiveTimer()
     currentWord = updateWord(currentWord, keyInput);
     mapCurrentWordToLine(currentWord, currentLine);
            
@@ -358,20 +463,22 @@ function revealHint(){
 
         if (currentLine+1 == inputGridRows){
             let newText = generateElement("p", clueContainer);
-            newText.textContent = "Last line left - no more clues"
+            clueContainer.textContent = "Last line left - no more clues"
             flagCluesActive = false;
             return;
 
         }
-        //generate random number for the 6 different clues
+       
         
         if (cluesUsed.length == 6){
             console.log(clueContainer.textContent);
             let newText = generateElement("p", clueContainer);
-            newText.textContent = "No clues left!"
+            clueContainer.textContent = "HA nice try, the name wont be revealed. No more clues!"
             flagCluesActive = false;
             return;
         }
+
+         //generate random number for the 6 different clues
 
         randomClueNumber = Math.floor(Math.random()*6);
         while (cluesUsed.includes(randomClueNumber)){
@@ -381,19 +488,32 @@ function revealHint(){
         //map the clues to each object's props
         // depending on which one, do/display something
         let cluetype = clueToKeyMap[randomClueNumber];
-        console.log(cluetype)
-        switch (cluetype){
 
+// let tdCluePosition = document.getElementById("tdCluePosition");
+
+    switch (cluetype){
             case "Photo": 
-            let clueImage = generateElement("img", clueContainer)
-            clueImage.setAttribute("src", playerData[randomPlayerNumber][clueToKeyMap[randomClueNumber]])
-            clueImage.classList.add("playerImage")
-
+                imgCluePlayerPhoto.setAttribute("src", playerCard["Photo"])
+                imgCluePlayerPhoto.classList.remove("superBlur");
+                imgCluePlayerPhoto.classList.add("playerImage");
             break;
-            default:
-                let newText = generateElement("p", clueContainer);
-                newText.textContent = playerData[randomPlayerNumber][clueToKeyMap[randomClueNumber]];
-                
+            case "Name":
+                tdClueName.textContent = playerCard["Name"];
+                break;
+            case "Age":
+                tdClueAge.textContent = playerCard["Age"];
+                break;
+            case "Kit Number":
+                tdClueKitNumber.textContent = playerCard["Kit Number"];
+            break;
+            case "Club":
+                tdClueClub.textContent = playerCard["Club"];
+            break;
+            case "Nationality":
+                tdClueNationality.textContent = playerCard["Nationality"];
+            break;
+            case "Position":
+                tdCluePosition.textContent = playerCard["Position"];
             break;
         }
         cluesUsed.push(randomClueNumber);
@@ -405,8 +525,24 @@ function revealHint(){
     //increse line counter and fill the line with -----
 
     } else {
-        clueContainer.textContent = "Game not started. Start game first!"
+        clueContainer.textContent = "Game not started. Start game first!";
     }
 
-   
+}
+
+// TIMER FUNCTIONS
+//on load 
+
+window.onload = function(){
+    setTimeout(function() {
+        let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
+        buttonModalInstructionsTrigger.click();
+    }, 1000);
+};
+
+function resetInactiveTimer(){
+    clearTimeout(inactiveTimer);
+    inactiveTimer = setTimeout(function() {
+        buttonHints.click();
+    }, 30000);
 }
