@@ -115,9 +115,17 @@ let positionToFullPositionMap = {
     "\"<span class=\"\"pos pos17\"\">RAM\"": "Right Attacking Mid",
     "\"<span class=\"\"pos pos18\"\">CAM\"": "Center Attacking Mid",
     "\"<span class=\"\"pos pos19\"\">LAM\"": "Left Attacking Mid", 
-
-
-
+    "\"<span class=\"\"pos pos20\"\">RF\"": "Right Forward",
+    "\"<span class=\"\"pos pos21\"\">CF\"": "Center Forward",
+    "\"<span class=\"\"pos pos22\"\">LF\"": "Left Forward",
+    "\"<span class=\"\"pos pos23\"\">RW\"": "Right Wing Forward",
+    "\"<span class=\"\"pos pos24\"\">RS\"": "Right Striker",
+    "\"<span class=\"\"pos pos25\"\">ST\"": "Striker",
+    "\"<span class=\"\"pos pos26\"\">LS\"": "Left Striker",
+    "\"<span class=\"\"pos pos27\"\">LW\"": "Left Wing Forward",
+    "\"<span class=\"\"pos pos28\"\">SUB\"": "Substitute/Bench",
+    "\"<span class=\"\"pos pos29\"\">RES\"": "Reserve",
+    
 
 }
 let validKeys = Object.values(displayKeysMap).flat()
@@ -320,6 +328,8 @@ function startGameInit(){
     if (!flagGameActive){
         setGameStartStates()
         targetName = filterDataset(flagLeagueSelected, playerData);
+        playerCard["Position"] = positionToFullPositionMap[playerCard["Position"]];
+        console.log(playerCard);
         resetActiveVariables()
        
         gridLength = targetName.length;
