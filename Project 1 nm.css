@@ -5,6 +5,12 @@
 /* . for class, # for id */
 /* . for class, # for id */
 
+
+
+#headingPageTitle{
+    font-weight: 900;
+
+}
 body{
 
       background-color: rgb(18, 18, 19);  
@@ -17,7 +23,7 @@ header {
 }
 
 #headNavButtons {
-    max-width: 768px;
+    max-width: 540px;
    
 
 }
@@ -61,7 +67,9 @@ header {
 
 #keyboardContainerTopRow, #keyboardContainerMiddleRow, #keyboardContainerBottomRow, #containerKeyboardInput {
   
-    max-width: min(768px, 97vw); /* I'm so proud of this line of code ha ha */
+    max-width: min(540px, 97vw); /* I'm so proud of this line of code ha ha */
+    height: 50px;
+    align-items: stretch;
    
 /* 
     display: grid;
@@ -71,30 +79,24 @@ header {
     row-gap: 1px; */
   
 }
-
     /* width: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr) 3fr;
     grid-template-rows: 1fr;
     column-gap: 1px;
     row-gap: 1px; */
-
 .keyboardKeys {
 
-    font-size: clamp(24px, 2vh, 36px);
+    font-size: clamp(20px, 2vh, 24px);
     /* width: clamp(32px, 8vw, 60px); */
-    
-
     color: white;
-    margin: 1px;
+    margin: 3px;
     padding: 0px;
     font-weight: 900;
     /* transition-property: background-color; */
-    
-    
+   
  /*
-    display: flex;
-    align-items: center;
+    align-items: center
     justify-content: center; */
 
 }
@@ -103,15 +105,8 @@ header {
     background-color: rgb(8, 110, 110);
 } */
 
-
 .enterKey {
     
-    display: flex;
-    align-items: stretch;
-    justify-content: center; 
-
-
-
     /* font-size: clamp(28px, 7vw, 48px);
     width: clamp(99px, 25vw, 180px);
     display: flex;

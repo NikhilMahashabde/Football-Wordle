@@ -18,6 +18,9 @@ Feature Phillosophy
 
 [done]win or lose condition - show player name, picture,
 [done]close box
+[done] keyboard layout alignment size fixed
+
+
 
 how to play instructions
 
