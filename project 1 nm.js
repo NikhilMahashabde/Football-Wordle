@@ -10,7 +10,8 @@ let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBo
 let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
 let buttonStartGame = document.getElementById("startGame")
-let settingsButton = document.querySelector("#settingsButton");
+let settingsButton = document.querySelector("#buttonSettingsModal");
+let svgSettingsIcon = document.getElementById("svgSettingsIcon")
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
 let buttonWL = document.getElementById("btnModalWL");
@@ -47,6 +48,23 @@ let TkeyboardContainerBottomRowDiv = document.getElementById("TkeyboardContainer
 buttonStartGame.addEventListener('click', resetFocus);
 hintsButton.addEventListener('click', resetFocus);
 settingsButton.addEventListener('click', resetFocus);
+svgSettingsIcon.addEventListener('click', triggerSettings);
+document.addEventListener('keydown', (event) => {
+    document.body.focus();
+    document.activeElement.blur();
+    if (!flagGameActive) return;
+    keyInput = event.key.toUpperCase();
+    keyInput == "BACKSPACE" ? keyInput = "\u2612" : keyInput;
+    keyInput == "ENTER" ? keyInput = "\u23CE" : keyInput;
+
+    
+    if (!validKeys.includes(keyInput)) return;
+    console.log(document.activeElement)
+    handleKeyInput(keyInput);
+
+    // Alert the key name and key code on keydown
+});
+
 
 
 ////// GLOBAL VARIABLES
@@ -434,21 +452,15 @@ function mapCurrentWordToLine(currentWord, currentLine){
 
 }
 
-document.addEventListener('keydown', (event) => {
-    document.body.focus();
-    document.activeElement.blur();
-    if (!flagGameActive) return;
-    keyInput = event.key.toUpperCase();
-    keyInput == "BACKSPACE" ? keyInput = "\u2612" : keyInput;
-    keyInput == "ENTER" ? keyInput = "\u23CE" : keyInput;
 
-    
-    if (!validKeys.includes(keyInput)) return;
-    console.log(document.activeElement)
-    handleKeyInput(keyInput);
 
-    // Alert the key name and key code on keydown
-});
+function triggerSettings(){
+
+    settingsButton.click();
+
+
+}
+/////////////////////////////
 
 function resetFocus(){
     hintsButton.blur();

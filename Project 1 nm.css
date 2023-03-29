@@ -5,7 +5,20 @@
 /* . for class, # for id */
 /* . for class, # for id */
 
+#svgSettingsIcon{
+    cursor: pointer;
+    width: 50%; height: auto; 
+    align-items: center;
 
+}
+
+.divValign{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 0;
+    
+}
 
 #headingPageTitle{
     font-weight: 900;
