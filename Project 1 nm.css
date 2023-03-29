@@ -5,9 +5,9 @@
 /* . for class, # for id */
 /* . for class, # for id */
 
-#svgSettingsIcon{
+#icons{
     cursor: pointer;
-    width: 50%; height: auto; 
+    width: min(100%, 24px) ; height: auto; 
     align-items: center;
 
 }
@@ -36,7 +36,8 @@ header {
 }
 
 #headNavButtons {
-    max-width: 540px;
+    max-width: min(70vw, 540px);
+    height: 5vh;
    
 
 }
@@ -137,7 +138,7 @@ header {
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 43vh 20vh auto;
+    grid-template-rows: 5vh 43vh 20vh;
     justify-items: center;
     justify-content: center;
    
@@ -172,4 +173,9 @@ header {
 .superBlur{
     width: 300px;
     filter: blur(100px);
+}
+
+.textInline{
+    display: inline;
+
 }
