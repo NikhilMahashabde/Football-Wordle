@@ -24,6 +24,7 @@ let tdAge = document.getElementById("tdAge");
 let tdPosition = document.getElementById("tdPosition");
 let divPlayerPhoto = document.getElementById("divPlayerPhoto");
 let imgPlayerPhoto = generateElement("img", divPlayerPhoto);
+let buttonGameStateDisplay = document.getElementById("buttonGameStateDisplay")
 
 let buttonHints = document.getElementById("hintsButton")
 
@@ -317,7 +318,7 @@ function endGame(condition){
 
     flagGameEnded = true;
     flagGameActive = false;
-    buttonStartGame.textContent = "Play Again"
+    buttonGameStateDisplay.textContent = "Play"
 }
 
 function fillPlayerCard(){
@@ -349,13 +350,13 @@ function startGameInit(){
         inputGridRows = mapDifficulty[selectInputDifficulty.value];
         generateGrid();
         
-        buttonStartGame.textContent = "End Game"
+        buttonGameStateDisplay.textContent = "End";
         flagStartGame = false;
 
     } else if (flagGameActive == true){
         flagStartGame = false;
         endGame("GAVE UP")
-        buttonStartGame.textContent = "Start Game"
+        buttonGameStateDisplay.textContent = "Start";
     };
    
 };
