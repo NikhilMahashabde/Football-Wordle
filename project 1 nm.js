@@ -11,7 +11,10 @@ let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
 let buttonStartGame = document.getElementById("startGame")
 let settingsButton = document.querySelector("#buttonSettingsModal");
+let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
 let svgSettingsIcon = document.getElementById("svgSettingsIcon")
+let svgInstructionsIcon = document.getElementById("svgInstructionsIcon")
+
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
 let buttonWL = document.getElementById("btnModalWL");
@@ -55,6 +58,7 @@ buttonStartGame.addEventListener('click', resetFocus);
 hintsButton.addEventListener('click', resetFocus);
 settingsButton.addEventListener('click', resetFocus);
 svgSettingsIcon.addEventListener('click', triggerSettings);
+svgInstructionsIcon.addEventListener('click', triggerHelp);
 document.addEventListener('keydown', (event) => {
     document.body.focus();
     document.activeElement.blur();
@@ -483,8 +487,10 @@ function mapCurrentWordToLine(currentWord, currentLine){
 function triggerSettings(){
 
     settingsButton.click();
+}
 
-
+function triggerHelp(){
+    buttonModalInstructionsTrigger.click();
 }
 /////////////////////////////
 
@@ -572,7 +578,7 @@ function revealHint(){
 
 window.onload = function(){
     setTimeout(function() {
-        let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
+        
         buttonModalInstructionsTrigger.click();
     }, 3000);
 };

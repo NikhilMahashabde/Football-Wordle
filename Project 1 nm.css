@@ -215,3 +215,11 @@ header {
     text-align: center;
 
 }
+
+footer {
+    position:fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 5px 0px 20px;
+    height: 40px;
+}
