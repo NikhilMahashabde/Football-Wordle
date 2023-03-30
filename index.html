@@ -266,7 +266,7 @@
                 <div class="col-6">
                     <h1 id="headingPageTitle" class="display-6">SOCCER WORDLE</h1>
                 </div>
-
+                <!-- personal c  -->
                 <div class="col-3 divValign">
 
                     <div class="container">
@@ -310,21 +310,26 @@
 
     </header>
     
-    <section id="gameContainer">
+    <section id="gameContainer" class = "border-bottom">
 
-        <div class="container" id="headNavButtons"> 
-            <div class="row g-0">
-                     
+        <div class="container border-bottom" id="headNavButtons"> 
+
+            <div class="row g-0 divValign ">
+                                   
+                
+                    <button id="startGame" class="col btn btn-dark headerButtons gameButtonBorder" onclick="startGameInit()">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                            <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                        </svg>
+                        <!--  -->
+                        <p class="textInline" id="buttonGameStateDisplay">Play</p>
+                    </button>
+
+            
                 <!-- start game button -->
-                <button id="startGame" class="col-2 btn btn-dark headerButtons" onclick="startGameInit()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
-                        <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
-                    </svg>
-                    <!--  -->
-                    <p class="textInline" id="buttonGameStateDisplay">Play</p>
-                </button>
+            
                 <!-- timer and show time function -->
-                <div class="col-8 btn btn-dark">
+                <div class="col btn btn-dark gameButtonBorder ">
                     <p id="timeMinutes" style="display: inline;">
                         0
                     </p>
@@ -334,11 +339,14 @@
                     </p>
                 </div>
 
-                <!-- hints button -->
-                <button  class="col-2 btn btn-dark headerButtons" data-toggle="modal" data-target="#modalHints" id="hintsButton">
-                    Hints
-                </button>
+                <!-- hints button --> 
+                    <button  class="col btn btn-dark headerButtons gameButtonBorder" data-toggle="modal" data-target="#modalHints" id="hintsButton">
+                        Hints
+                    </button>
+
                 
+                
+                </div>
             </div>
         </div>
                 

@@ -20,6 +20,11 @@
     
 }
 
+.iconsDivVertical{
+    width: 16px;
+
+}
+
 #headingPageTitle{
     font-weight: 900;
 
@@ -36,9 +41,16 @@ header {
 }
 
 #headNavButtons {
-    max-width: min(70vw, 540px);
-    height: 5vh;
-   
+    max-width: min(70vw, 280px);
+    height: 4vh;
+
+    padding: 0; 
+
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+
 
 }
 
@@ -138,7 +150,7 @@ header {
 #gameContainer {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 5vh 43vh 20vh;
+    grid-template-rows: 7vh 43vh 20vh;
     justify-items: center;
     justify-content: center;
    
@@ -177,5 +189,22 @@ header {
 
 .textInline{
     display: inline;
+
+}
+
+#headerTitle{
+    max-width: 100vw;
+
+}
+
+.gameButtonBorder{
+    justify-self: center;
+    align-self: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.borderGrid{
+    height: 7vh;
 
 }
