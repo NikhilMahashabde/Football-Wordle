@@ -37,11 +37,16 @@ let tdCluePosition = document.getElementById("tdCluePosition");
 let divCluePlayerPhoto = document.getElementById("divCluePlayerPhoto");
 let imgCluePlayerPhoto = generateElement("img", divCluePlayerPhoto);
 
+let timeSeconds = document.getElementById("timeSeconds")
+let timeMinutes = document.getElementById("timeMinutes")
+
+
 //test
 let TkeyboardContainer = document.querySelector("#TcontainerKeyboardInput")
 let TkeyboardContainerTopRowDiv = document.getElementById("TkeyboardContainerTopRow");
 let TkeyboardContainerMiddleRowDiv = document.getElementById("TkeyboardContainerMiddleRow");
 let TkeyboardContainerBottomRowDiv = document.getElementById("TkeyboardContainerBottomRow");
+
 
 
 ///// EVENT LISTNERS
@@ -81,7 +86,9 @@ let playerData;
 let cluesUsed = [];
 const win = "WIN";
 const lose = "LOSE";
-let inactiveTimer;
+let secondCounter = 0;
+let gameTimer = 0;
+
 
 ///// FLAGS /////
 
@@ -300,6 +307,7 @@ function handleGuess(){
     }
     if (guess == targetName){
         endGame(win);
+
        
     } else if (inputGridRows == (currentLine+1)){
         endGame(lose);
@@ -310,6 +318,7 @@ function handleGuess(){
 
 function endGame(condition){
 
+
     headingWLModal.textContent = `You ${condition}!`;
     fillPlayerCard();
     buttonWL.click();
@@ -318,7 +327,10 @@ function endGame(condition){
 
     flagGameEnded = true;
     flagGameActive = false;
-    buttonGameStateDisplay.textContent = "Play"
+    buttonGameStateDisplay.textContent = "Play";
+    clearTimeout(inactiveTimer);
+    clearInterval(gameTimer);
+
 }
 
 function fillPlayerCard(){
@@ -340,12 +352,13 @@ function fillPlayerCard(){
 function startGameInit(){
 
     if (!flagGameActive){
+       
         setGameStartStates()
         targetName = filterDataset(flagLeagueSelected, playerData);
         playerCard["Position"] = positionToFullPositionMap[playerCard["Position"]];
-        console.log(playerCard);
         resetActiveVariables()
        
+        startGameTimer();
         gridLength = targetName.length;
         inputGridRows = mapDifficulty[selectInputDifficulty.value];
         generateGrid();
@@ -400,10 +413,22 @@ function resetActiveVariables(){
     }, 30000);
     clueContainer.textContent = "";
 
+    // timer reset states
+    resetStopwatch();
+
+}
+
+function resetStopwatch(){
+    secondCounter = 0;
+    timeSeconds.textContent = 0;
+    timeMinutes.textContent = 0;
+
+
 }
   
 function keyPress(event){
     if (!flagGameActive) return;
+    resetInactiveTimer();
     keyInput = event.target.textContent;
     console.log(keyInput)
     handleKeyInput(keyInput);
@@ -411,7 +436,7 @@ function keyPress(event){
 
 function handleKeyInput(keyInput){
 
-    resetInactiveTimer()
+    
     currentWord = updateWord(currentWord, keyInput);
     mapCurrentWordToLine(currentWord, currentLine);
            
@@ -549,7 +574,7 @@ window.onload = function(){
     setTimeout(function() {
         let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
         buttonModalInstructionsTrigger.click();
-    }, 1000);
+    }, 3000);
 };
 
 function resetInactiveTimer(){
@@ -557,4 +582,17 @@ function resetInactiveTimer(){
     inactiveTimer = setTimeout(function() {
         buttonHints.click();
     }, 30000);
+}
+
+function startGameTimer(){
+    
+    gameTimer = setInterval(function() {
+        secondCounter++;
+        console.log(secondCounter);
+        timeSeconds.textContent = secondCounter%60;
+        timeMinutes.textContent = Math.floor(secondCounter/60);
+
+
+    }, 1000);
+
 }
