@@ -41,9 +41,9 @@ header {
 }
 
 #headNavButtons {
-    max-width: min(70vw, 280px);
+    max-width: min(70vw, 350px);
     height: 4vh;
-
+    font-size: 8px;
     padding: 0; 
 
     justify-self: center;
@@ -206,5 +206,12 @@ header {
 
 .borderGrid{
     height: 7vh;
+
+}
+
+.timerText{
+    display: inline; 
+    font-size: 12px; 
+    text-align: center;
 
 }
