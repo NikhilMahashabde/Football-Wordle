@@ -298,13 +298,8 @@
                             </div>
                         </div>
                     </div>
-
-                    
-                   
-                    
                     
                 </div>
-   
             </div>
         </div>
 
@@ -318,9 +313,13 @@
                                    
                 
                     <button id="startGame" class="col btn btn-dark headerButtons gameButtonBorder" onclick="startGameInit()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                        <svg id = "svgPlayIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16" >
                             <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
                         </svg>
+                        <svg id="svgStopIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stop-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3z"/>
+                          </svg>
                         <!--  -->
                         <p class="textInline" id="buttonGameStateDisplay">Play</p>
                     </button>
