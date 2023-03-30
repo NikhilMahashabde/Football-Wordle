@@ -16,6 +16,7 @@ let svgSettingsIcon = document.getElementById("svgSettingsIcon")
 let svgInstructionsIcon = document.getElementById("svgInstructionsIcon")
 let svgPlayIcon = document.getElementById("svgPlayIcon");
 let svgStopIcon = document.getElementById("svgStopIcon");
+let playerScore = document.getElementById("scoreText") 
 
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
@@ -31,6 +32,7 @@ let divPlayerPhoto = document.getElementById("divPlayerPhoto");
 let imgPlayerPhoto = generateElement("img", divPlayerPhoto);
 let buttonGameStateDisplay = document.getElementById("buttonGameStateDisplay")
 
+
 let buttonHints = document.getElementById("hintsButton")
 
 let tdClueName = document.getElementById("tdClueName");
@@ -42,8 +44,9 @@ let tdCluePosition = document.getElementById("tdCluePosition");
 let divCluePlayerPhoto = document.getElementById("divCluePlayerPhoto");
 let imgCluePlayerPhoto = generateElement("img", divCluePlayerPhoto);
 
-let timeSeconds = document.getElementById("timeSeconds")
-let timeMinutes = document.getElementById("timeMinutes")
+let timeSeconds = document.getElementById("timeSeconds");
+let timeMinutes = document.getElementById("timeMinutes");
+
 
 
 //test
@@ -92,8 +95,15 @@ let playerData;
 let cluesUsed = [];
 const win = "WIN";
 const lose = "LOSE";
+const gaveUp = "GAVE UP";
 let secondCounter = 0;
 let gameTimer = 0;
+
+let uniqueLetters = 0;
+let currentUniqueLetters = [];
+
+
+
 
 svgStopIcon.style.display = "none";
 
@@ -118,8 +128,32 @@ fetch('https://nikhilmahashabde.github.io/Football-Wordle/playerData.json')
         playerData = data;
     });
 
-//Dataset containers and - tba import from excel or JSON real list 
+// User profile factory function TBA
 
+function createPlayer(playerName) {
+    const player = {
+      name: playerName,
+      storageKey: "",
+      setScore(currentScore) {
+        localStorage.setItem(this.storageKey, currentScore);
+      },
+      getScore() {
+        return localStorage.getItem(this.storageKey);
+      }
+    };
+    player.storageKey = `${player.name}.score`;
+    return player;
+  }
+
+const profileDefault = createPlayer("default");
+  
+// User profile 1 test
+
+console.log(profileDefault.getScore());
+
+let currentGems = "";
+
+let currentScore = profileDefault.getScore();
 
 
 // keyboard keyset to display
@@ -182,11 +216,16 @@ let clueToKeyMap = {
 }
 
 ///////////////////////////////// PAGE INITIALISATION /////////////////////////////
-//generate the keyboard appearance and layout. 
+//generate the keyboard appearance and layout.
 
 // keyboard
+
 displayKeyboard(displayKeysMap);
 generateGrid();
+
+// variables
+playerScore.textContent = profileDefault.getScore();
+svgStopIcon.style.display = "none";
 
 ////////////////////////////////// FUNCTIONS ///////////////////////////
 
@@ -235,7 +274,7 @@ function filterDataset(flagLeagueSelected, playerData) {
     // function to generate random name from the list of players. 
     let nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     
-    while (nameFilter.length > 15){
+    while (nameFilter.length > 12){
         randomPlayerNumber = Math.floor(Math.random() * playerData.length);
         nameFilter = playerData[randomPlayerNumber]["Name"].toUpperCase();
     }
@@ -269,7 +308,7 @@ function handleGuess(){
     wordGuessList.push(currentWord);
     lastGuess = currentWord;
     let lastLine = currentLine;
-    
+        
     for (guess of wordGuessList){
       
         for (let x = 0; x < lastGuess.length; x++){
@@ -297,6 +336,17 @@ function handleGuess(){
             }
 
             if (lastGuess[x] == targetName[x]){
+                //scoring
+
+                if (!currentUniqueLetters.includes(lastGuess[x])){
+                    currentUniqueLetters.push(lastGuess[x])
+                    currentScore++;
+                    localStorage.setItem("currentScore", `${currentScore}`);
+                    profileDefault.setScore(currentScore);
+
+                    playerScore.textContent = profileDefault.getScore();
+                }
+
                 let divGuessIncludes = document.getElementById(`${x}.${lastLine}`);
                 divGuessIncludes.classList.add("letterCorrect");
                
@@ -314,7 +364,6 @@ function handleGuess(){
     }
     if (guess == targetName){
         endGame(win);
-
        
     } else if (inputGridRows == (currentLine+1)){
         endGame(lose);
@@ -325,10 +374,20 @@ function handleGuess(){
 
 function endGame(condition){
 
-
     headingWLModal.textContent = `You ${condition} in ${timeMinutes.textContent} minutes and ${timeSeconds.textContent} seconds!`;
     fillPlayerCard();
     buttonWL.click();
+
+    // score updating - temporarily set to give up as i cant win.. 
+    if (condition == win){
+        currentScore += 25;
+        profileDefault.setScore(currentScore);
+        localStorage.setItem("currentScore", `${currentScore}`);
+        playerScore.textContent = profileDefault.getScore();
+        if (secondCounter < 60){
+
+        }
+    }
 
     //reset game states
 
@@ -377,7 +436,7 @@ function startGameInit(){
 
     } else if (flagGameActive == true){
         flagStartGame = false;
-        endGame("GAVE UP")
+        endGame(gaveUp);
         buttonGameStateDisplay.textContent = "Start";
     };
    
@@ -428,6 +487,13 @@ function resetActiveVariables(){
     // button swap
     svgStopIcon.style.display = "";
     svgPlayIcon.style.display = "none";
+
+    uniqueLetters = [...targetName].reduce((letters, currentLetter) => {
+                letters == !letters.includes(currentLetter) ? letters : letters.push(currentLetter)
+                return letters;
+            }, []); // unique leters inside the target word
+        
+    
 
 }
 
@@ -574,7 +640,7 @@ function revealHint(){
         currentWord = ".".repeat(targetName.length);
         mapCurrentWordToLine(currentWord, currentLine);
         handleGuess();
-        
+                
 
     } else {
         clueContainer.textContent = "Game not started. Start game first!";
