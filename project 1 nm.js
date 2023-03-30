@@ -3,25 +3,25 @@
 ///// NODE ELEMENTS /////
 
 // elements targets for global use. 
-let keyboardContainer = document.querySelector("#containerKeyboardInput")
+let keyboardContainer = document.querySelector("#containerKeyboardInput");
 let keyboardContainerTopRowDiv = document.getElementById("keyboardContainerTopRow");
 let keyboardContainerMiddleRowDiv = document.getElementById("keyboardContainerMiddleRow");
 let keyboardContainerBottomRowDiv = document.getElementById("keyboardContainerBottomRow");
 let selectInputDifficulty = document.getElementById("selectDifficulty");
 let containerLetterOutput = document.getElementById("containerLetterOutput"); 
-let buttonStartGame = document.getElementById("startGame")
+let buttonStartGame = document.getElementById("startGame");
 let settingsButton = document.querySelector("#buttonSettingsModal");
 let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
-let svgSettingsIcon = document.getElementById("svgSettingsIcon")
-let svgInstructionsIcon = document.getElementById("svgInstructionsIcon")
+let svgSettingsIcon = document.getElementById("svgSettingsIcon");
+let svgInstructionsIcon = document.getElementById("svgInstructionsIcon");
 let svgPlayIcon = document.getElementById("svgPlayIcon");
 let svgStopIcon = document.getElementById("svgStopIcon");
-let playerScore = document.getElementById("scoreText") 
+let playerScore = document.getElementById("scoreText");
 
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
 let buttonWL = document.getElementById("btnModalWL");
-let headingWLModal = document.getElementById("headingWL")
+let headingWLModal = document.getElementById("headingWL");
 let tdName = document.getElementById("tdName");
 let tdKitNumber = document.getElementById("tdKitNumber");
 let tdClub = document.getElementById("tdClub");
@@ -30,10 +30,10 @@ let tdAge = document.getElementById("tdAge");
 let tdPosition = document.getElementById("tdPosition");
 let divPlayerPhoto = document.getElementById("divPlayerPhoto");
 let imgPlayerPhoto = generateElement("img", divPlayerPhoto);
-let buttonGameStateDisplay = document.getElementById("buttonGameStateDisplay")
+let buttonGameStateDisplay = document.getElementById("buttonGameStateDisplay");
 
 
-let buttonHints = document.getElementById("hintsButton")
+let buttonHints = document.getElementById("hintsButton");
 
 let tdClueName = document.getElementById("tdClueName");
 let tdClueKitNumber = document.getElementById("tdClueKitNumber");
@@ -50,7 +50,7 @@ let timeMinutes = document.getElementById("timeMinutes");
 
 
 //test
-let TkeyboardContainer = document.querySelector("#TcontainerKeyboardInput")
+let TkeyboardContainer = document.querySelector("#TcontainerKeyboardInput");
 let TkeyboardContainerTopRowDiv = document.getElementById("TkeyboardContainerTopRow");
 let TkeyboardContainerMiddleRowDiv = document.getElementById("TkeyboardContainerMiddleRow");
 let TkeyboardContainerBottomRowDiv = document.getElementById("TkeyboardContainerBottomRow");
@@ -74,7 +74,6 @@ document.addEventListener('keydown', (event) => {
 
     
     if (!validKeys.includes(keyInput)) return;
-    console.log(document.activeElement)
     handleKeyInput(keyInput);
 
     // Alert the key name and key code on keydown
@@ -103,8 +102,6 @@ let uniqueLetters = 0;
 let currentUniqueLetters = [];
 
 
-
-
 svgStopIcon.style.display = "none";
 
 ///// FLAGS /////
@@ -117,7 +114,7 @@ let flagCluesActive = true;
 let flagLeagueSelected = {
     "La Liga": false, 
     "EPL": true,
-}
+};
 
 ///// DATASETS AND MAPS /////
 
@@ -143,7 +140,7 @@ function createPlayer(playerName) {
     };
     player.storageKey = `${player.name}.score`;
     return player;
-  }
+  };
 
 const profileDefault = createPlayer("default");
   
@@ -161,7 +158,7 @@ let displayKeysMap = {
     topRow: ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P" ],
     middleRow: ["A", "S", "D", "F", "G", "H", "J", "K", "L", "-"],
     bottomRow: ["\u23CE", "Z", "X", "C", "V", "B", "N", "M", "\u2612"]
-}
+};
 
 let positionToFullPositionMap = {
     "\"<span class=\"\"pos pos2\"\">RWB\"" : "Right Wing Back",
@@ -194,15 +191,15 @@ let positionToFullPositionMap = {
     "\"<span class=\"\"pos pos29\"\">RES\"": "Reserve",
     
 
-}
-let validKeys = Object.values(displayKeysMap).flat()
+};
+let validKeys = Object.values(displayKeysMap).flat();
 
 //game difficulty map 
 let mapDifficulty = {
     easy: 8,
     medium: 7,
     hard: 6,
-}
+};
 
 //clue map
 
@@ -213,7 +210,7 @@ let clueToKeyMap = {
     3: "Club",
     4: "Position",
     5: "Kit Number",
-}
+};
 
 ///////////////////////////////// PAGE INITIALISATION /////////////////////////////
 //generate the keyboard appearance and layout.
@@ -260,7 +257,7 @@ function displayKeyboard(displayKeysMap){
         }
         key.addEventListener("click", event => {keyPress(event)});
     });
-}
+};
 
 
 // filter dataset to get a random value;
@@ -280,7 +277,7 @@ function filterDataset(flagLeagueSelected, playerData) {
     }
     playerCard = playerData[randomPlayerNumber];
     return nameFilter;
-}
+};
 
 //generate grid
 function generateGrid(){
@@ -295,13 +292,13 @@ function generateGrid(){
             newNode.id = `${x}.${y}`;
         }
     }
-}
+};
 
 function generateElement(type, parent, ...options){
     let newNode = document.createElement(type);
     parent.appendChild(newNode);
     return newNode;
-}
+};
 
 function handleGuess(){
 
@@ -333,7 +330,7 @@ function handleGuess(){
                     }
                 });
 
-            }
+            };
 
             if (lastGuess[x] == targetName[x]){
                 //scoring
@@ -359,9 +356,9 @@ function handleGuess(){
                         
                     }
                 });
-            }
-        }
-    }
+            };
+        };
+    };
     if (guess == targetName){
         endGame(win);
        
@@ -370,15 +367,16 @@ function handleGuess(){
     }
     currentLine++;
     currentWord = "";
-}
+};
 
 function endGame(condition){
 
     headingWLModal.textContent = `You ${condition} in ${timeMinutes.textContent} minutes and ${timeSeconds.textContent} seconds!`;
+   
     fillPlayerCard();
     buttonWL.click();
 
-    // score updating - temporarily set to give up as i cant win.. 
+    // score updating - 
     if (condition == win){
         currentScore += 25;
         profileDefault.setScore(currentScore);
@@ -387,10 +385,9 @@ function endGame(condition){
         if (secondCounter < 60){
 
         }
-    }
+    };
 
     //reset game states
-
     svgStopIcon.style.display = "none";
     svgPlayIcon.style.display = "";
     flagGameEnded = true;
@@ -399,20 +396,20 @@ function endGame(condition){
     clearTimeout(inactiveTimer);
     clearInterval(gameTimer);
 
-}
+};
 
 function fillPlayerCard(){
     
     tdName.textContent = targetName;
-    tdKitNumber.textContent = playerData[randomPlayerNumber]["Kit Number"]
-    tdClub.textContent  = playerData[randomPlayerNumber]["Club"]
-    tdNationality.textContent  = playerData[randomPlayerNumber]["Nationality"]
-    tdAge.textContent  = playerData[randomPlayerNumber]["Age"]
-    tdPosition.textContent  = playerData[randomPlayerNumber]["Position"]
-    imgPlayerPhoto.setAttribute("src", `${ playerData[randomPlayerNumber]["Photo"]}`)
+    tdKitNumber.textContent = playerData[randomPlayerNumber]["Kit Number"];
+    tdClub.textContent  = playerData[randomPlayerNumber]["Club"];
+    tdNationality.textContent  = playerData[randomPlayerNumber]["Nationality"];
+    tdAge.textContent  = playerData[randomPlayerNumber]["Age"];
+    tdPosition.textContent  = playerData[randomPlayerNumber]["Position"];
+    imgPlayerPhoto.setAttribute("src", `${ playerData[randomPlayerNumber]["Photo"]}`);
     imgPlayerPhoto.style.width = "300px";
 
-}
+};
 
 //////////////////////////////////// EVENT HANDLERS ///////////////////////////////////////////
 
@@ -446,7 +443,7 @@ function setGameStartStates(){
     flagStartGame = true;
     flagGameEnded = false;
     flagGameActive = true;
-}
+};
 function resetActiveVariables(){
     cluesUsed.length = 0;
     flagCluesActive = true;
@@ -495,7 +492,7 @@ function resetActiveVariables(){
         
     
 
-}
+};
 
 function resetStopwatch(){
     secondCounter = 0;
@@ -503,15 +500,15 @@ function resetStopwatch(){
     timeMinutes.textContent = 0;
 
 
-}
+};
   
 function keyPress(event){
     if (!flagGameActive) return;
     resetInactiveTimer();
     keyInput = event.target.textContent;
-    console.log(keyInput)
+
     handleKeyInput(keyInput);
-}
+};
 
 function handleKeyInput(keyInput){
 
@@ -522,7 +519,7 @@ function handleKeyInput(keyInput){
     if (currentWord.length == targetName.length && keyInput == "\u23CE"){
         handleGuess()
     }
-}
+};
 
 ///// updatedword
 function updateWord(wordToUpdate, keyInput) {
@@ -555,14 +552,14 @@ function mapCurrentWordToLine(currentWord, currentLine){
         divAtIndex.textContent = currentWord[x];
     }
 
-}
+};
 
 
 
 function triggerSettings(){
 
     settingsButton.click();
-}
+};
 
 function triggerHelp(){
     buttonModalInstructionsTrigger.click();
@@ -600,7 +597,7 @@ function revealHint(){
         randomClueNumber = Math.floor(Math.random()*6);
         while (cluesUsed.includes(randomClueNumber)){
             randomClueNumber = Math.floor(Math.random()*6);
-        }
+        };
              
         //map the clues to each object's props
         // depending on which one, do/display something
@@ -644,9 +641,9 @@ function revealHint(){
 
     } else {
         clueContainer.textContent = "Game not started. Start game first!";
-    }
+    };
 
-}
+};
 
 // TIMER FUNCTIONS
 //on load 
@@ -663,17 +660,16 @@ function resetInactiveTimer(){
     inactiveTimer = setTimeout(function() {
         buttonHints.click();
     }, 60000);
-}
+};
 
 function startGameTimer(){
     
     gameTimer = setInterval(function() {
         secondCounter++;
-        console.log(secondCounter);
         timeSeconds.textContent = secondCounter%60;
         timeMinutes.textContent = Math.floor(secondCounter/60);
 
 
     }, 1000);
 
-}
+};

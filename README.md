@@ -22,6 +22,7 @@ Feature Phillosophy
 
 
 
+
 how to play instructions
 
 settings button icon 
@@ -40,3 +41,7 @@ avergae per solution
 
 
 
+list of players
+
+source
+boostrap
