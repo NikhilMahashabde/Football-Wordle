@@ -14,6 +14,8 @@ let settingsButton = document.querySelector("#buttonSettingsModal");
 let buttonModalInstructionsTrigger = document.getElementById("instructionsModalTrigger");
 let svgSettingsIcon = document.getElementById("svgSettingsIcon")
 let svgInstructionsIcon = document.getElementById("svgInstructionsIcon")
+let svgPlayIcon = document.getElementById("svgPlayIcon");
+let svgStopIcon = document.getElementById("svgStopIcon");
 
 let hintsButton = document.querySelector("#hintsButton");
 let clueContainer = document.getElementById("clueContainer");
@@ -93,6 +95,7 @@ const lose = "LOSE";
 let secondCounter = 0;
 let gameTimer = 0;
 
+svgStopIcon.style.display = "none";
 
 ///// FLAGS /////
 
@@ -329,6 +332,8 @@ function endGame(condition){
 
     //reset game states
 
+    svgStopIcon.style.display = "none";
+    svgPlayIcon.style.display = "";
     flagGameEnded = true;
     flagGameActive = false;
     buttonGameStateDisplay.textContent = "Play";
@@ -414,11 +419,15 @@ function resetActiveVariables(){
     
     inactiveTimer = setTimeout(function() {
         buttonHints.click();
-    }, 30000);
+    }, 60000);
     clueContainer.textContent = "";
 
     // timer reset states
     resetStopwatch();
+
+    // button swap
+    svgStopIcon.style.display = "";
+    svgPlayIcon.style.display = "none";
 
 }
 
@@ -587,7 +596,7 @@ function resetInactiveTimer(){
     clearTimeout(inactiveTimer);
     inactiveTimer = setTimeout(function() {
         buttonHints.click();
-    }, 30000);
+    }, 60000);
 }
 
 function startGameTimer(){
