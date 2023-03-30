@@ -319,7 +319,7 @@ function handleGuess(){
 function endGame(condition){
 
 
-    headingWLModal.textContent = `You ${condition}!`;
+    headingWLModal.textContent = `You ${condition} in ${timeMinutes.textContent} minutes and ${timeSeconds.textContent} seconds!`;
     fillPlayerCard();
     buttonWL.click();
 
