@@ -1,45 +1,36 @@
 
 # Soccer Worlde
 
-Soccer wordle is an experience for avid football fans to test thier knowlege of player names all across the world. 
-Soccer Wrodle has been created using HTML, CSS and Javascript, incorporating the bootstrap UI library for styling. 
+Soccer Wordle is an experience for avid football fans to test thier knowlege of player names all across the world. 
+The application has been created using HTML, CSS and Javascript, incorporating the bootstrap UI library for styling. 
 
 # Table of contents
-* General information 
-* Technologies Used
+* Introduction  
 * Features
+* Technologies Used
 * Setup
 * Project status 
 
 # Introduction 
-
-  inspiration
-What your application does,
-What was your motivation?
-Why did you build this project?
-What problem does it solve?
-What did you learn?
-
-**- phillosopy**
-- repeatable game that allows users to score points over thier career. 
-- Element of urgency, including rewards
-- Mobile first
-
-** Some of the challenges you faced and features you hope to implement in the future.
+The application chooses a random player from a list of 15,000 global soccer plays. The goal of the game is to guess the player's name (optionally, within 1 minute) and score the maximum points in order to climb the leaderboards. The application features a settings menu, points based rewards, a hints page and a timer, which combined allow for various strategies to win the game. 
 
 
-//////////////goal and purpose
+### Inspiration
+I drew much inspiration from the game "Who are ya" (https://playfootball.games/who-are-ya/big-5) which displays a blurry photo and gives the user a certain number of guesses. My passion for Football led me to combine wordle, along with elements of the prior game to create a hybrid. The limitation of daily wordles and slow pacing, led to the complete overhaul of the rules and motivations for the user (e.g. fast paced gameplay).
 
-* is to learn and apply complex tehcniques, rather tahn do one liners
-* code quality and readability
-* trading off run time/efficiency to improve readability -OOP interfacing
+### Goals and Phillosophy
+From the perspective of self-development, I wanted to implement all the knowledge learnt as part of Unit 1 at General assembly. Along with this, I attempted to incorporate various other learnings from the past few weeks. This led to a list of game/design requirements as per below. 
 
-Coding Philosophy
-* Mobile first
+* Repeatable game that allows users to score points over thier "career"
+* Element of urgency - win, loss and foregone rewards, and ability/framework to "monetise the game"
+* Mobile first approach - By nature, this game would most likely be played on a phone, thus it should be designed for small screens and then scaled to add responsiveness for larger monitors.
+* Using objects and functions, write code such that is easily readable
+* Design the code such that it can scale easily and features can be implemented post launch
 
-Feature Phillosophy
-* Carrot and stick
-* sense of urgency
+### Challenges
+* Visualising CSS with many objects proved to be difficult. Learning a CSS framework was also difficult but gave me a much better understanding of vanilla CSS
+* Obtaining, converting, filtering, and hosting player profile data was a very time consuming process as I was unfamilair with the entire process.  
+  
 
 # Features
 
