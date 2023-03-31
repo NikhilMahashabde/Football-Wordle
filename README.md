@@ -15,10 +15,10 @@ The application has been created using HTML, CSS and Javascript, incorporating t
 The application chooses a random player from a list of 15,000 global soccer plays. The goal of the game is to guess the player's name (optionally, within 1 minute) and score the maximum points in order to climb the leaderboards. The application features a settings menu, points based rewards, a hints page and a timer, which combined allow for various strategies to win the game. 
 
 
-### Inspiration
+## Inspiration
 I drew much inspiration from the game "Who are ya" (https://playfootball.games/who-are-ya/big-5) which displays a blurry photo and gives the user a certain number of guesses. My passion for Football led me to combine wordle, along with elements of the prior game to create a hybrid. The limitation of daily wordles and slow pacing, led to the complete overhaul of the rules and motivations for the user (e.g. fast paced gameplay).
 
-### Goals and Phillosophy
+## Goals and Phillosophy
 From the perspective of self-development, I wanted to implement all the knowledge learnt as part of Unit 1 at General assembly. Along with this, I attempted to incorporate various other learnings from the past few weeks. This led to a list of game/design requirements as per below. 
 
 * Repeatable game that allows users to score points over thier "career"
@@ -27,7 +27,7 @@ From the perspective of self-development, I wanted to implement all the knowledg
 * Using objects and functions, write code such that is easily readable
 * Design the code such that it can scale easily and features can be implemented post launch
 
-### Challenges
+## Challenges
 * Visualising CSS with many objects proved to be difficult. Learning a CSS framework was also difficult but gave me a much better understanding of vanilla CSS
 * Obtaining, converting, filtering, and hosting player profile data was a very time consuming process as I was unfamilair with the entire process.  
   
@@ -89,7 +89,7 @@ Start the game using index.html
 
 Current version 2.2
 
-### Completed in Full
+## Completed in Full
 * Database filtering
 * Dynamic array/letter generation
 * Full functional game logic
@@ -106,13 +106,13 @@ Current version 2.2
 * Keyboard layout alignment 
 * Dynamic scaling for bigger screens
   
-### Partially complete
+## Partially complete
 * how to play instructions
 * User profile generator
 * User profile object - add gems
 * local storage of stats
 
-### To add
+## To add
 * Optional monetisation
 * Statistics
 
