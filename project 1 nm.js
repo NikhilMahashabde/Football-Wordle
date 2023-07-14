@@ -1,8 +1,5 @@
 
 //////////////////////////////////////////////  GLOBAL BINDINGS  ////////////////////////////////////////////
-// Note to reader - I am aware of the number of global variables and event listeners in use. This is generally
-// terrible practise but I have run out of time to refactor and organise code into functions which pass around data
-// When the project was first startedI was also unsure how to "globalise" html elements when created inside a function . 
 
 ///// NODE ELEMENTS /////
 // elements targets for global use. 
